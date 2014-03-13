@@ -1,0 +1,5 @@
+Ahmia - Django project for hidden service search
+
+Yacy software is required. 
+Currently, ahmia is listening YaCy from 10.8.0.6:8090.
+

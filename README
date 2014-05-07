@@ -3,3 +3,11 @@ Ahmia - Django project for hidden service search
 Yacy software is required. 
 Currently, ahmia is listening YaCy from 10.8.0.10:8090.
 The YaCy connection is defined in settings.py.
+
+Scheduled jobs to cron:
+crontab -l
+0 10 * * * timeout 60000s python /usr/local/lib/ahmia/tools/test_hidden_services.py >>/dev/null 2>&1
+0 20 * * * timeout 1800s python /usr/local/lib/ahmia/tools/get_tor2web_domains.py >>/dev/null 2>&1
+
+Check every day which hidden services are online and try to download description.json from them.
+Check every day statistics from Tor2web nodes.

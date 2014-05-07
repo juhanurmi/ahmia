@@ -8,9 +8,7 @@ Scheduled jobs to cron:
 crontab -l
 # m h  dom mon dow   command
 0 10 * * * timeout 60000s python /usr/local/lib/ahmia/tools/test_hidden_services.py >>/usr/local/lib/ahmia/error/tools_test.log 2>&1
-0 9 * * * timeout 1800s python /usr/local/lib/ahmia/tools/delete_banned.py >>/usr/local/lib/ahmia/error/tools_delete.log 2>&1
 0 7 * * * timeout 1800s python /usr/local/lib/ahmia/tools/get_tor2web_domains.py >>/usr/local/lib/ahmia/error/tools_get.log 2>&1
 
 Check every day which hidden services are online and try to download description.json from them.
-Delete banned domains from Solr index.
 Check every day statistics from Tor2web nodes.

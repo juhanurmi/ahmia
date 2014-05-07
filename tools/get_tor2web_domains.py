@@ -32,7 +32,7 @@ def loader(tor2web_nodes):
         if pretty_json:
             timestamp = datetime.datetime.now().strftime("%y-%m-%d-%H-%M")
             node = node.replace(".", "") + "_"
-            filename = "../tor2web_stats/" + node + timestamp + ".json"
+            filename = "/usr/local/lib/ahmia/tor2web_stats/" + node + timestamp + ".json"
             text2file(pretty_json, filename)
             print "Downloaded JSON data."
 

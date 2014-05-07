@@ -26,8 +26,7 @@ def open_connection(req):
         if handle.getcode() != 200:
             print handle.getcode()
         else:
-            print handle.read()
-            return True
+            return handle.read()
     except urllib2.HTTPError, error:
         print 'HTTPError = ' + str(error.code)
     except urllib2.URLError, error:
@@ -73,7 +72,8 @@ def add_hidden_services(start):
                     if validate_onion_url(domain):
                         print '{"url":"'+domain+'"}'
                         found = True
-    except:
+    except Exception as error:
+        print error
         print xml_string
     return found
 

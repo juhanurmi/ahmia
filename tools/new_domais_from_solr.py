@@ -51,7 +51,7 @@ def send_get(url):
     """Authenticate and send GET request to the URL."""
     req = Request(url)
     auth(req)
-    result = open(req)
+    result = open_connection(req)
     if not result:
         print "Error..."
         return ""

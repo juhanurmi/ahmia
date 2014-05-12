@@ -4,11 +4,11 @@ Yacy software is required.
 Currently, ahmia is listening YaCy from 10.8.0.10:8090.
 The YaCy connection is defined in settings.py.
 
-Scheduled jobs to cron:
-crontab -l
-# m h  dom mon dow   command
-0 10 * * * timeout 60000s python /usr/local/lib/ahmia/tools/test_hidden_services.py >>/usr/local/lib/ahmia/error/tools_test.log 2>&1
-0 7 * * * timeout 1800s python /usr/local/lib/ahmia/tools/get_tor2web_domains.py >>/usr/local/lib/ahmia/error/tools_get.log 2>&1
+HTTP server is required.
+Please see apache2_sites_available_ahmia to setup to run with Apache HTTP server.
 
-Check every day which hidden services are online and try to download description.json from them.
-Check every day statistics from Tor2web nodes.
+Note the crontabs.
+See crontabs file.
+
+Furthermore, you will need to set the rights to the tools.
+chmod -R ugo+rx tools/

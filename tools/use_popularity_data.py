@@ -63,8 +63,6 @@ def analyser(json_file, checked_onions):
         for hidden_service in json_data["hidden_services"]:
             access_count = hidden_service["access_count"]
             onion_id = hidden_service["id"]
-            if onion_id in checked_onions:
-                continue
             onion_url = 'http://' + onion_id + '.onion/'
             print onion_url
             data = '{"url": "' + onion_url + '"}'

@@ -7,7 +7,7 @@ The YaCy connection is defined in settings.py.
 HTTP server is required.
 Please see apache2_sites_available_ahmia to setup to run with Apache HTTP server.
 
-Note the crontabs.
+Note the crontabs. The order of the task is important.
 See crontabs file.
 
 Furthermore, you will need to set the rights to the tools.

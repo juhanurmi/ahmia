@@ -18,7 +18,7 @@ def load_content(site, host, links):
         start_page_search = start_page_search + "host%3A"+host+"+"
     start_page_search = start_page_search+"link%3A"+site
     if not links:
-        start_page_search = start_page_search.replace("+link%3A", "+")
+        start_page_search = start_page_search.replace("link%3A", "")
     response = http.request('GET', start_page_search)
     return response
 
@@ -48,7 +48,9 @@ def result_count(soup):
     """Print only the number of backlinkers."""
     element = soup.find("p", {"id": "results_count_p"})
     if element:
-        print int(find_between(element.contents[0], "About ", " results"))
+        number = find_between(element.contents[0], "About ", " results")
+        number = number.replace(",","")
+        print int(number)
     else:
         print 0
 

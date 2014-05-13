@@ -79,7 +79,6 @@ def analyser(json_file, checked_onions):
             save_popularity_data(data, onion_id)
             pool.urlopen('PUT', url, headers=content_type, body=data)
             checked_onions.append(onion_id)
-            break#######################################################
 
 def save_popularity_data(data, onion_id):
     """ Save the popularity data to """
@@ -102,7 +101,7 @@ def main():
     for filename in os.listdir(document_dir):
         if not filename.endswith(".json"):
             continue
-        if timestamp in filename or True: ################
+        if timestamp in filename:
             analyser(document_dir+filename, checked_onions)
     # Gather all backlink information from the rest
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")

@@ -50,12 +50,13 @@ def get_backlinks(onion_url):
 
 def analyser(json_file):
     """Analyse JSON data from Tor2web node."""
+    print json_file
     pool = urllib3.HTTPSConnectionPool("127.0.0.1", 443, timeout=10,
     cert_reqs='CERT_NONE', assert_hostname=False)
     json_text = read_file(json_file)
     json_data = valid_json(json_text)
     if not json_data:
-        print "Error: %s" % json_data
+        print "Error: %s" % json_text
         raise SystemExit
     dateday = json_data["date"]
     onions = []

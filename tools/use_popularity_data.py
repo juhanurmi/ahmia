@@ -54,6 +54,9 @@ def analyser(json_file):
     cert_reqs='CERT_NONE', assert_hostname=False)
     json_text = read_file(json_file)
     json_data = valid_json(json_text)
+    if not json_data:
+        print "Error: %s" % json_data
+        raise SystemExit
     dateday = json_data["date"]
     onions = []
     if json_data:
@@ -97,7 +100,7 @@ def main():
     onions = []
     # Use Tor2web stats
     for filename in os.listdir(document_dir):
-        if timestamp in filename or True: ##############################
+        if filename.endswith(".json") and timestamp in filename or True: ################
             onions.extend(analyser(document_dir+filename))
     # Gather all backlink information from the rest
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")

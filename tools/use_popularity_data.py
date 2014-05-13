@@ -101,7 +101,9 @@ def main():
     onions = []
     # Use Tor2web stats
     for filename in os.listdir(document_dir):
-        if filename.endswith(".json") and timestamp in filename or True: ################
+        if not filename.endswith(".json"):
+            continue
+        if timestamp in filename or True: ################
             onions.extend(analyser(document_dir+filename))
     # Gather all backlink information from the rest
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")

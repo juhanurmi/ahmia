@@ -48,7 +48,7 @@ def get_backlinks(onion_url):
     count = int(proc.communicate()[0])
     return count
 
-def analyser(json_file):
+def analyser(json_file, checked_onions):
     """Analyse JSON data from Tor2web node."""
     print json_file
     pool = urllib3.HTTPSConnectionPool("127.0.0.1", 443, timeout=10,
@@ -59,11 +59,12 @@ def analyser(json_file):
         print "Error: %s" % json_text
         raise SystemExit
     dateday = json_data["date"]
-    onions = []
     if json_data:
         for hidden_service in json_data["hidden_services"]:
             access_count = hidden_service["access_count"]
             onion_id = hidden_service["id"]
+            if onion_id in checked_onions:
+                continue
             onion_url = 'http://' + onion_id + '.onion/'
             print onion_url
             data = '{"url": "' + onion_url + '"}'
@@ -77,10 +78,8 @@ def analyser(json_file):
             print data
             save_popularity_data(data, onion_id)
             pool.urlopen('PUT', url, headers=content_type, body=data)
-            onions.append(onion_id)
-            #######
-            break
-    return onions
+            checked_onions.append(onion_id)
+            break#######################################################
 
 def save_popularity_data(data, onion_id):
     """ Save the popularity data to """
@@ -98,13 +97,13 @@ def main():
     document_dir = my_path.replace("/tools", "/tor2web_stats/")
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")
     timestamp = "_" + timestamp + "-"
-    onions = []
+    checked_onions = []
     # Use Tor2web stats
     for filename in os.listdir(document_dir):
         if not filename.endswith(".json"):
             continue
         if timestamp in filename or True: ################
-            onions.extend(analyser(document_dir+filename))
+            analyser(document_dir+filename, checked_onions)
     # Gather all backlink information from the rest
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")
     stats_dir = "/popularity_stats/" + timestamp + "/"
@@ -115,7 +114,7 @@ def main():
     links = pool.request('GET', url).data
     links = links.replace(".onion/", "").replace("http://", "").split('\n')
     for onion_id in links:
-        if not onion_id or onion_id in onions:
+        if not onion_id or onion_id in checked_onions:
             continue
         content_type = {'Content-Type':'application/json'}
         onion_url = 'http://' + onion_id + '.onion/'

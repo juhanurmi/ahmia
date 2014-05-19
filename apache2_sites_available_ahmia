@@ -2,6 +2,9 @@
         ServerName www.ahmia.fi
         ServerAdmin hostmaster@ahmia.fi
 
+	# Do not track IP addresses!
+	LogFormat "0.0.0.0 - - %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %V" noip
+
         ErrorLog /usr/local/lib/ahmia/error/error.log
         # Possible values include: debug, info, notice, 
         # warn, error, crit, alert, emerg.
@@ -19,6 +22,9 @@
 <VirtualHost *:443>
         ServerName www.ahmia.fi
         ServerAdmin hostmaster@ahmia.fi
+
+        # Do not track IP addresses!
+        LogFormat "0.0.0.0 - - %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %V" noip
 
         # the world is evil so ssl'd it shall be
         SSLEngine On

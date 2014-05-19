@@ -9,7 +9,7 @@
         # Possible values include: debug, info, notice, 
         # warn, error, crit, alert, emerg.
         LogLevel warn
-        CustomLog /usr/local/lib/ahmia/error/access.log combined
+        CustomLog /usr/local/lib/ahmia/error/access.log noip
     
         # redirections as follow, order is critical!
         RewriteEngine On
@@ -65,7 +65,7 @@
         # Possible values include: debug, info, notice,
         # warn, error, crit, alert, emerg.
         LogLevel warn
-        CustomLog /usr/local/lib/ahmia/error/access.log combined
+        CustomLog /usr/local/lib/ahmia/error/access.log noip
 
         WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
         WSGIProcessGroup ahmia-site

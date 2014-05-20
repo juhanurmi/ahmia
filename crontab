@@ -9,3 +9,6 @@
 0 1 * * 1 timeout 600000s python /usr/local/lib/ahmia/tools/gather_backlinks_data.py >>/usr/local/lib/ahmia/error/tools_backlinks.log 2>&1
 # Every hour destroy possible IP addresses from the error logs
 0 * * * * sed -i s/'\['client.*'\]'/'\['0.0.0.0'\]'/ /usr/local/lib/ahmia/error/error.log 2>&1
+# Once a week remove the whole log files
+0 1 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
+0 1 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log

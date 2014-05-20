@@ -12,3 +12,12 @@ See crontabs file.
 
 Furthermore, you will need to set the rights to the tools.
 chmod -R ugo+rx tools/
+
+
+
+
+For developers:
+
+Please, at least, validate your Python code with
+pylint --generated-members=objects --const-rgx='[a-z_][a-z0-9_]{2,30}$' python_code_file.py
+and fix the major problems.

@@ -34,6 +34,7 @@
         SSLCACertificateFile /etc/apache2/ssl/ca/ca.pem
 
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
+	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
 
         <Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static">
                 Options FollowSymLinks MultiViews +Indexes

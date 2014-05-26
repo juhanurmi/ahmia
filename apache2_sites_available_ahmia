@@ -33,16 +33,11 @@
         SSLCertificateChainFile /etc/apache2/ssl/ca/sub.class2.server.sha1.ca.pem
         SSLCACertificateFile /etc/apache2/ssl/ca/ca.pem
 
-        Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
-	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
-
         <Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static">
                 Options FollowSymLinks MultiViews +Indexes
                 Order deny,allow
                 Allow from all
         </Directory>
-
-        Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
 
         <Directory "/usr/local/lib/ahmia/ahmia/static">
                 Options FollowSymLinks MultiViews +Indexes
@@ -61,6 +56,11 @@
                 Deny from all
                 Allow from 127.0.0.0/255.0.0.0 ::1/128
         </Location>
+        
+        Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
+        Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
+	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
+	Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
 
         ErrorLog /usr/local/lib/ahmia/error/error.log
         # Possible values include: debug, info, notice,

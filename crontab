@@ -10,5 +10,7 @@
 # Every hour destroy possible IP addresses from the error logs
 0 * * * * sed -i s/'\['client.*'\]'/'\['0.0.0.0'\]'/ /usr/local/lib/ahmia/error/error.log 2>&1
 # Once a week remove the whole log files
-0 1 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
-0 1 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log
+0 2 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
+0 3 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log
+# Once a week create database backup    
+0 4 * * 1 pg_dump -U ahmia_login ahmia_db -f /usr/local/lib/ahmia/backups/sql/$(date -d "today" +"%Y-%m-%d")-db_backup.sql

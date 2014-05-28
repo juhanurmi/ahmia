@@ -72,3 +72,47 @@
         WSGIProcessGroup ahmia-site
         WSGIDaemonProcess ahmia-site processes=2 threads=16 maximum-requests=1000 display-name=apache-ahmia-wsgi
 </VirtualHost>
+
+<VirtualHost 127.0.0.1:56789>
+	ServerName msydqstlz2kzerdg.onion
+
+        # Do not track IP addresses!
+        LogFormat "0.0.0.0 - - %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %V" noip
+
+        <Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static">
+                Options FollowSymLinks MultiViews +Indexes
+                Order deny,allow
+                Allow from all
+        </Directory>
+
+        <Directory "/usr/local/lib/ahmia/ahmia/static">
+                Options FollowSymLinks MultiViews +Indexes
+                Order deny,allow
+                Allow from all
+        </Directory>
+
+        <Location /banneddomains.txt>
+                Order deny,allow
+                Deny from all
+        </Location>
+
+        <Location /alldomains>
+                Order deny,allow
+                Deny from all
+        </Location>
+        
+        Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
+        Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
+	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
+	Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
+
+        ErrorLog /usr/local/lib/ahmia/error/hs_error.log
+        # Possible values include: debug, info, notice,
+        # warn, error, crit, alert, emerg.
+        LogLevel warn
+        CustomLog /usr/local/lib/ahmia/error/hs_access.log noip
+
+        WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
+        WSGIProcessGroup ahmia-hs-site
+        WSGIDaemonProcess ahmia-hs-site processes=2 threads=16 maximum-requests=1000 display-name=apache-hs-ahmia-wsgi
+</VirtualHost>

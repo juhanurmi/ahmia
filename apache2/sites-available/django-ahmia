@@ -105,6 +105,7 @@
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
 	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
 	Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
+	Alias /description.json "/usr/local/lib/ahmia/ahmia/static/description.json"
 
         ErrorLog /usr/local/lib/ahmia/error/hs_error.log
         # Possible values include: debug, info, notice,

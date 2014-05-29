@@ -9,7 +9,6 @@ def search_term_unescape(text):
     escape_table = {
     "%20": " ",
     "+": " ",
-    "%20": " ",
     "%21": "!",
     "%22": '"',
     "%23": "#",
@@ -57,18 +56,18 @@ def read_file(filename):
 def analyser(access_log):
     """Extracts information from the access log text."""
     regex1 = r'([(\d\.)]+) - - \[(.*?)\] "(.*?)"'
-    #regex2 = re.compile('\/search\/\?q=(.*?) HTTP')
+    regex2 = re.compile('\/search\/\?q=(.*?) HTTP')
     search_count = 0
     for line in access_log.split('\n'):
         if line:
             ip_addr, timestamp, http = re.match(regex1, line).groups()
             if "/search/?q=" in http:
                 search_count = search_count + 1
-                #query = regex2.search(http)
-                #if query:
-                    #query = search_term_unescape(query.group(1))
-                    #if not "%" in query:
-                        #print query
+                query = regex2.search(http)
+                if query:
+                    query = search_term_unescape(query.group(1))
+                    if not "%" in query:
+                        print query
     print search_count
 
 def main():

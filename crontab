@@ -1,16 +1,28 @@
 # m h  dom mon dow   command
+#
+# EVERY HOUR
+# Every hour destroy possible IP addresses from the error logs
+0 * * * * sed -i s/'\['client.*'\]'/'\['0.0.0.0'\]'/ /usr/local/lib/ahmia/error/error.log 2>&1
+0 * * * * sed -i s/'\['client.*'\]'/'\['0.0.0.0'\]'/ /usr/local/lib/ahmia/error/hs_error.log 2>&1
+#
+# EVERY DAY
 # Check every day statistics from Tor2web nodes.
 0 1 * * * timeout 1800s python /usr/local/lib/ahmia/tools/get_tor2web_domains.py >>/usr/local/lib/ahmia/error/tools_get.log 2>&1
 # Move Tor2web stats to the database
 0 2 * * * timeout 9000s python /usr/local/lib/ahmia/tools/use_popularity_data.py >>/usr/local/lib/ahmia/error/tools_popularity.log 2>&1
 # Check every day which hidden services are online and try to download description.json from them.
 0 3 * * * timeout 60000s python /usr/local/lib/ahmia/tools/test_hidden_services.py >>/usr/local/lib/ahmia/error/tools_test.log 2>&1
-# ONLY ONCE A WEEK: Check the backlinks
-0 1 * * 1 timeout 600000s python /usr/local/lib/ahmia/tools/gather_backlinks_data.py >>/usr/local/lib/ahmia/error/tools_backlinks.log 2>&1
-# Every hour destroy possible IP addresses from the error logs
-0 * * * * sed -i s/'\['client.*'\]'/'\['0.0.0.0'\]'/ /usr/local/lib/ahmia/error/error.log 2>&1
-# Once a week remove the whole log files
-0 2 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
-0 3 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log
+#
+#EVERY WEEK
+# Once a week analyze and remove the log files
+#1 1 * * 1
+2 1 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
+3 1 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log
+4 1 * * 1 echo "" > /usr/local/lib/ahmia/error/hs_error.log
+5 1 * * 1 echo "" > /usr/local/lib/ahmia/error/hs_access.log
+# Once a week check the backlinks
+#6 1 * * 1 timeout 600000s python /usr/local/lib/ahmia/tools/gather_backlinks_data.py >>/usr/local/lib/ahmia/error/tools_backlinks.log 2>&1
 # Once a week create database backup    
-0 4 * * 1 pg_dump -U ahmia_login ahmia_db -f /usr/local/lib/ahmia/backups/sql/$(date -d "today" +"%Y-%m-%d")-db_backup.sql
+7 1 * * 1 pg_dump -U ahmia_login ahmia_db -f /usr/local/lib/ahmia/backups/sql/$(date -d "today" +"%Y-%m-%d")-db_backup.sql
+# Create a snapshot from the addresses with their descriptions
+8 1 * * 1 curl -i "Content-Type: application/json" https://ahmia.fi/address/ > /usr/local/lib/ahmia/backups/addresses/$(date -d "today" +"%Y-%m-%d")-addresses_snapshot.json

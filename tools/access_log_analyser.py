@@ -17,6 +17,12 @@ def valid_pretty_json(myjson):
     except ValueError:
         return False
 
+def text2file(txt, filename):
+    """Write the txt to the file."""
+    outputfile = codecs.open(filename, "w", "utf-8")
+    outputfile.write(txt)
+    outputfile.close()
+
 def date_compare(ts1, ts2, **compkw):
     """
         Compares to Apache log format dates.
@@ -116,14 +122,21 @@ def analyser(access_log):
     json_data = '{"searches": [' + ",".join(search_counts) + ']}'
     json_pretty = valid_pretty_json(json_data)
     if json_pretty:
-        print json_pretty
+        return json_pretty
 
 def main():
     """Main function."""
     my_path = module_locator.module_path()
     access_file_path = my_path.replace("/tools", "/error/access.log")
     access_log = read_file(access_file_path)
-    analyser(access_log)
+    json_pretty = analyser(access_log)
+    filename = my_path.replace("/tools", "/ahmia/static/log/access.json")
+    text2file(json_pretty, filename)
+    access_file_path = my_path.replace("/tools", "/error/hs_access.log")
+    access_log = read_file(access_file_path)
+    json_pretty = analyser(access_log)
+    filename = my_path.replace("/tools", "/ahmia/static/log/hs_access.json")
+    text2file(json_pretty, filename)
 
 if __name__ == '__main__':
     main()

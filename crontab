@@ -15,7 +15,7 @@
 #
 #EVERY WEEK
 # Once a week analyze and remove the log files
-#1 1 * * 1
+1 0 * * 1 python /usr/local/lib/ahmia/tools/access_log_analyser.py
 2 1 * * 1 echo "" > /usr/local/lib/ahmia/error/error.log
 3 1 * * 1 echo "" > /usr/local/lib/ahmia/error/access.log
 4 1 * * 1 echo "" > /usr/local/lib/ahmia/error/hs_error.log

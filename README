@@ -5,7 +5,7 @@ Currently, ahmia is listening YaCy from 10.8.0.10:8090.
 The YaCy connection is defined in settings.py.
 
 HTTP server is required.
-Please see apache2_sites_available_ahmia to setup to run with Apache HTTP server.
+Please see /apache2/ to setup to run with Apache HTTP server.
 
 Note the crontabs. The order of the task is important.
 See crontabs file.

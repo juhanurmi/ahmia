@@ -11,8 +11,10 @@ def open_req(req):
         handle = urllib2.urlopen(req)
         if handle.getcode() != 200:
             print handle.getcode()
+            handle.close()
         else:
             print handle.read()
+            handle.close()
             return True
     except urllib2.HTTPError, error:
         print 'HTTPError = ' + str(error.code)

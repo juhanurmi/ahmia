@@ -70,7 +70,7 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
         WSGIProcessGroup ahmia-site
-        WSGIDaemonProcess ahmia-site processes=8 threads=16 maximum-requests=1000 display-name=apache-ahmia-wsgi
+        WSGIDaemonProcess ahmia-site processes=8 threads=16 display-name=apache-ahmia-wsgi
 </VirtualHost>
 
 <VirtualHost 127.0.0.1:56789>
@@ -115,5 +115,5 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
         WSGIProcessGroup ahmia-hs-site
-        WSGIDaemonProcess ahmia-hs-site processes=2 threads=16 maximum-requests=1000 display-name=apache-hs-ahmia-wsgi
+        WSGIDaemonProcess ahmia-hs-site processes=2 threads=16 display-name=apache-hs-ahmia-wsgi
 </VirtualHost>

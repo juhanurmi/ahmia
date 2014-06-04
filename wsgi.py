@@ -1,10 +1,10 @@
-import sys
 import os
-import os.path
+import sys
 
-sys.path.append(os.path.dirname(__file__))
+sys.path.append('/usr/local/lib/ahmia')
+
+# Path to the settings.py file
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ahmia.settings")
-
 # This application object is used by the development server
 # as well as any WSGI server configured to use this file.
 from django.core.wsgi import get_wsgi_application

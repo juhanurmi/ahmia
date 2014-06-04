@@ -14,10 +14,14 @@ Furthermore, you will need to set the rights to the tools.
 chmod -R ugo+rx tools/
 
 
-
-
 For developers:
-
 Please, at least, validate your Python code with
 pylint --generated-members=objects --const-rgx='[a-z_][a-z0-9_]{2,30}$' python_code_file.py
 and fix the major problems.
+
+
+Not required, but recommended for better system performance:
+- Install haveged - A simple entropy daemon
+- Use PostgreSQL (ahmia is tested with the version 8.4)
+- Install PgBouncer is a lightweight connection pooler for PostgreSQL
+- Edit the process and threads parameters of the WSGIDaemonProcess in apache2/sites-available/django-ahmia

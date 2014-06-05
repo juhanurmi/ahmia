@@ -12,7 +12,10 @@ Note the crontabs. The order of the task is important.
 See crontabs file.
 
 Furthermore, you will need to set the rights to the tools.
-chmod -R ugo+rx tools/
+chmod -R ugo+rx /usr/local/lib/ahmia/tools/
+and 
+chown -R www-data:www-data /usr/local/lib/ahmia/  
+chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
 
 
 For developers:

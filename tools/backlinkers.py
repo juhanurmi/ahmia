@@ -19,7 +19,9 @@ def load_content(site, host, links):
     start_page_search = start_page_search+"link%3A"+site
     if not links:
         start_page_search = start_page_search.replace("link%3A", "")
-    response = http.request('GET', start_page_search)
+    agent = 'Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0'
+    headers = urllib3.make_headers(user_agent=agent)
+    response = http.request('GET', start_page_search, headers)
     return response
 
 def find_between(string, first, last):

@@ -58,7 +58,7 @@ def post(url, data):
 
 def main():
     """Test each hidden service with HTTP GET."""
-    urldomains = 'http://127.0.0.1:8000/alldomains'
+    urldomains = 'https://127.0.0.1/alldomains'
     links = get2txt(urldomains).split('\n')
     for link in links:
         if not link:

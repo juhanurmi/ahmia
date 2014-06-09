@@ -68,7 +68,7 @@
         LogLevel warn
         CustomLog /usr/local/lib/ahmia/error/access.log noip
 
-        WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
+        WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-site
         WSGIDaemonProcess ahmia-site processes=16 threads=16 display-name=apache-ahmia-wsgi
 </VirtualHost>
@@ -113,7 +113,7 @@
         LogLevel warn
         CustomLog /usr/local/lib/ahmia/error/hs_access.log noip
 
-        WSGIScriptAlias / /usr/local/lib/ahmia/ahmia.wsgi
+        WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-hs-site
         WSGIDaemonProcess ahmia-hs-site processes=2 threads=16 display-name=apache-hs-ahmia-wsgi
 </VirtualHost>

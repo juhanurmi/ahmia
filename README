@@ -13,10 +13,12 @@ See crontabs file.
 
 Furthermore, you will need to set the rights to the tools.
 chmod -R ugo+rx /usr/local/lib/ahmia/tools/
-and 
+And 
 chown -R www-data:www-data /usr/local/lib/ahmia/  
 chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
-
+And after creating the SQLite database
+chown www-data. /usr/local/lib/ahmia
+chown www-data. /usr/local/lib/ahmia/ahmia_db
 
 For developers:
 Please, at least, validate your Python code with

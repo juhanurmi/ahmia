@@ -17,8 +17,8 @@ And
 chown -R www-data:www-data /usr/local/lib/ahmia/  
 chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
 And after creating the SQLite database
-chown www-data. /usr/local/lib/ahmia
-chown www-data. /usr/local/lib/ahmia/ahmia_db
+chown www-data:www-data /usr/local/lib/ahmia
+chown www-data:www-data /usr/local/lib/ahmia/ahmia_db
 
 For developers:
 Please, at least, validate your Python code with
@@ -28,8 +28,9 @@ and fix the major problems.
 
 Not required, but recommended for better system performance:
 - Install haveged - A simple entropy daemon
-- Use SQLite
 - Edit the process and threads parameters of the WSGIDaemonProcess in apache2/sites-available/django-ahmia
+- Use PostgreSQL
+- Install PgBouncer is a lightweight connection pooler for PostgreSQL
 
 
 Testing:

@@ -26,6 +26,14 @@ and fix the major problems.
 
 Not required, but recommended for better system performance:
 - Install haveged - A simple entropy daemon
-- Use PostgreSQL (ahmia is tested with the version 8.4)
-- Install PgBouncer is a lightweight connection pooler for PostgreSQL
+- Use SQLite
 - Edit the process and threads parameters of the WSGIDaemonProcess in apache2/sites-available/django-ahmia
+
+
+Testing:
+python manage.py syncdb
+python manage.py loaddata ahmia/fixtures/initial_data.json
+python manage.py runserver
+
+Or run unittests:
+python manage.py test ahmia/tests/

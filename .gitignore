@@ -1,3 +1,4 @@
 *.pyc
 *.bak
+venv/
 ahmia_db

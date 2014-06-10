@@ -1,30 +1,24 @@
-Ahmia - Django 1.6 project for hidden service search
+# Ahmia - Django 1.6 project for hidden service search
 
 
-Yacy software is required. 
-Currently, ahmia is listening YaCy from 10.8.0.10:8090.
-The YaCy connection is defined in settings.py.
+# Yacy software is required. 
+# Currently, ahmia is listening YaCy from 10.8.0.10:8090.
+# The YaCy connection is defined in settings.py.
 
-HTTP server is required.
-Please see /apache2/ to setup to run with Apache HTTP server.
+# HTTP server is required.
+# Please see /apache2/ to setup to run with Apache HTTP server.
 
-Note the crontabs. The order of the task is important.
-See crontabs file.
+# Note the crontabs. The order of the task is important.
+# See crontabs file.
 
-Furthermore, you will need to set the rights to the tools.
+# Furthermore, you will need to set the rights to the tools.
 chmod -R ugo+rx /usr/local/lib/ahmia/tools/
-And 
+# And 
 chown -R www-data:www-data /usr/local/lib/ahmia/  
 chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
-And after creating the SQLite database
+# And after creating the SQLite database
 chown www-data:www-data /usr/local/lib/ahmia
 chown www-data:www-data /usr/local/lib/ahmia/ahmia_db
-
-For developers:
-Please, at least, validate your Python code with
-pylint --generated-members=objects --const-rgx='[a-z_][a-z0-9_]{2,30}$' python_code_file.py
-and fix the major problems.
-
 
 Not required, but recommended for better system performance:
 - Install haveged - A simple entropy daemon
@@ -32,11 +26,19 @@ Not required, but recommended for better system performance:
 - Use PostgreSQL
 - Install PgBouncer is a lightweight connection pooler for PostgreSQL
 
+#In addition to Apache, PostgreSQL and PgBouncer you will need at least these:
+pip install -r requirements.txt
+apt-get install python-socksipy python-psycopg2 libapache2-mod-wsgi
 
-Testing:
+# For developers:
+# Please, at least, validate your Python code with
+pylint --generated-members=objects --const-rgx='[a-z_][a-z0-9_]{2,30}$' python_code_file.py
+# and fix the major problems.
+
+# Testing:
 python manage.py syncdb
 python manage.py loaddata ahmia/fixtures/initial_data.json
 python manage.py runserver
 
-Or run unittests:
+# Or run unittests:
 python manage.py test ahmia/tests/

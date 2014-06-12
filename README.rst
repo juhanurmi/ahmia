@@ -10,17 +10,21 @@ Compatibility
 
 Ahmia requires Python 2.7+ and Django 1.6+ and YaCy
 
-
 Installation
 ============
 
 Currently, ahmia is listening YaCy from 10.8.0.10:8090.
+
 The YaCy connection is defined in settings.py.
 
+
 HTTP server is required.
+
 Please see /apache2/ to setup to run with Apache HTTP server.
 
+
 Note the crontabs. The order of the task is important.
+
 See crontabs file.
 
 .. code-block:: console
@@ -29,6 +33,7 @@ See crontabs file.
     $ apt-get install python-socksipy python-psycopg2 libapache2-mod-wsgi
 
 Furthermore, you will need to set the rights to the tools.
+
 .. code-block:: console
 
     $ chmod -R ugo+rx /usr/local/lib/ahmia/tools/
@@ -48,6 +53,7 @@ And after creating the SQLite database
     $ chown www-data:www-data /usr/local/lib/ahmia/ahmia_db
 
 Not required, but recommended for better system performance:
+
 - Install haveged - A simple entropy daemon
 - Edit the process and threads parameters of the WSGIDaemonProcess in apache2/sites-available/django-ahmia
 - Use PostgreSQL
@@ -90,6 +96,7 @@ For developers
 =============
 
 Please, at least, validate your Python code with
+
 .. code-block:: console
 
     $ pylint --rcfile=pylint.rc /ahmia/python_code_file.py

@@ -44,18 +44,6 @@
                 Order deny,allow
                 Allow from all
         </Directory>
-
-        <Location /banneddomains.txt>
-                Order deny,allow
-                Deny from all
-                Allow from 127.0.0.0/255.0.0.0 ::1/128
-        </Location>
-
-        <Location /alldomains>
-                Order deny,allow
-                Deny from all
-                Allow from 127.0.0.0/255.0.0.0 ::1/128
-        </Location>
         
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
@@ -70,7 +58,7 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-site
-        WSGIDaemonProcess ahmia-site processes=16 threads=16 display-name=apache-ahmia-wsgi
+        WSGIDaemonProcess ahmia-site processes=20 threads=16 display-name=apache-ahmia-wsgi
 </VirtualHost>
 
 <VirtualHost 127.0.0.1:56789>
@@ -90,16 +78,6 @@
                 Order deny,allow
                 Allow from all
         </Directory>
-
-        <Location /banneddomains.txt>
-                Order deny,allow
-                Deny from all
-        </Location>
-
-        <Location /alldomains>
-                Order deny,allow
-                Deny from all
-        </Location>
         
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
@@ -115,5 +93,5 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-hs-site
-        WSGIDaemonProcess ahmia-hs-site processes=2 threads=16 display-name=apache-hs-ahmia-wsgi
+        WSGIDaemonProcess ahmia-hs-site processes=3 threads=16 display-name=apache-hs-ahmia-wsgi
 </VirtualHost>

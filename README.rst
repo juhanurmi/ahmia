@@ -1,5 +1,5 @@
 ===============
-Ahmia - Django 1.6 project for hidden service search
+Ahmia - Tor Hidden Service Search
 ===============
 
 .. image:: https://ahmia.fi/static/images/ahmia_logo.png
@@ -27,25 +27,27 @@ Note the crontabs. The order of the task is important.
 
 See crontabs file.
 
+Install depencies:
+
 .. code-block:: console
 
     $ pip install -r requirements.txt
     $ apt-get install python-socksipy python-psycopg2 libapache2-mod-wsgi
 
-Furthermore, you will need to set the rights to the tools.
+Furthermore, you will need to set the rights to the tools:
 
 .. code-block:: console
 
     $ chmod -R ugo+rx /usr/local/lib/ahmia/tools/
 
-And to Apache
+And to Apache:
 
 .. code-block:: console
 
     $ chown -R www-data:www-data /usr/local/lib/ahmia/  
     $ chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
 
-And after creating the SQLite database
+And after creating the SQLite database:
 
 .. code-block:: console
 
@@ -57,7 +59,7 @@ Not required, but recommended for better system performance:
 - Install haveged - A simple entropy daemon
 - Edit the process and threads parameters of the WSGIDaemonProcess in apache2/sites-available/django-ahmia
 - Use PostgreSQL
-- Install PgBouncer is a lightweight connection pooler for PostgreSQL
+- Install PgBouncer: a lightweight connection pooler for PostgreSQL
 
 Features
 ========
@@ -86,7 +88,7 @@ Then open your browser to http://localhost:8000
 Tests
 ====
 
-Unittests
+Unittests:
 
 .. code-block:: console
 
@@ -95,7 +97,7 @@ Unittests
 For developers
 =============
 
-Please, at least, validate your Python code with
+Please, at least, validate your Python code with:
 
 .. code-block:: console
 

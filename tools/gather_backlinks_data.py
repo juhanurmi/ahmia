@@ -50,8 +50,8 @@ def main():
     # Gather all backlink information from the rest
     timestamp = datetime.datetime.now().strftime("%y-%m-%d")
     stats_dir = "/popularity_stats/" + timestamp + "/"
-    url = 'https://127.0.0.1/address/online/'
-    pool = urllib3.HTTPSConnectionPool("127.0.0.1", 443, timeout=10,
+    url = 'https://127.0.0.1:45454/address/online/'
+    pool = urllib3.HTTPSConnectionPool("127.0.0.1", 45454, timeout=10,
     cert_reqs='CERT_NONE', assert_hostname=False)
     links = pool.request('GET', url).data
     links = links.replace(".onion/", "").replace("http://", "").split('\n')
@@ -65,7 +65,7 @@ def main():
         onion_url = 'http://' + onion_id + '.onion/'
         print onion_url
         backlinks = str(get_backlinks(onion_url))
-        url = 'https://127.0.0.1/address/' + onion_id + "/popularity/"
+        url = 'https://127.0.0.1:45454/address/' + onion_id + "/popularity/"
         data = '{"date": "' + timestamp + '", "tor2web_access_count": '
         data = data + '0, "backlinks": ' + backlinks + '}'
         print data

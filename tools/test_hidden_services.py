@@ -6,7 +6,9 @@ import signal, time # To timeout the TCP/HTTP connection
 import httplib
 import socks
 import simplejson
-from bs4 import BeautifulSoup #To parse HTML
+from bs4 import BeautifulSoup # To parse HTML
+import socket
+socket.setdefaulttimeout(80) # Timeout after 1min 20s
 
 class SocksiPyConnection(httplib.HTTPConnection):
     """Socks connection for HTTP."""

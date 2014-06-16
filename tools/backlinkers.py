@@ -19,9 +19,7 @@ def load_content(site, host, links):
     start_page_search = start_page_search+"link%3A"+site
     if not links:
         start_page_search = start_page_search.replace("link%3A", "")
-    agent = 'Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0'
-    headers = urllib3.make_headers(user_agent=agent)
-    response = http.request('GET', start_page_search, headers)
+    response = http.request('GET', start_page_search)
     return response
 
 def find_between(string, first, last):
@@ -51,7 +49,7 @@ def result_count(soup):
     element = soup.find("p", {"id": "results_count_p"})
     if element:
         number = find_between(element.contents[0], "About ", " results")
-        number = number.replace(",","")
+        number = number.replace(",", "")
         print int(number)
     else:
         print 0

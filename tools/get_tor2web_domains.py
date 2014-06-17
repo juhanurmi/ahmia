@@ -52,8 +52,8 @@ def get_json(node):
 
 def main():
     """Main function."""
-    tor2web_nodes = ["tor2web.fi", "tor2web.org",
-    "onion.to", "tor2web.blutmagie.de", "onion.lt"]
+    tor2web_nodes = ["tor2web.fi", "tor2web.org", "onion.to",
+    "tor2web.blutmagie.de", "onion.lt", "onion.cab", "onion.lu"]
     loader(tor2web_nodes)
 
 if __name__ == '__main__':

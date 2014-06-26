@@ -1,7 +1,7 @@
 Ahmia - Tor Hidden Service Search
 =================================
 
-![https://ahmia.fi/](https://github.com/juhanurmi/ahmia/blob/master/ahmia/static/images/ahmia_logo.png)
+![https://ahmia.fi/](https://raw.githubusercontent.com/juhanurmi/ahmia/master/ahmia/static/images/ahmia_logo.png)
 
 https://ahmia.fi/
 

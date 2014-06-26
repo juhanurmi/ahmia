@@ -1,11 +1,13 @@
 """Data analyser for the access.log."""
 # -*- coding: utf-8 -*-
-import codecs # UTF-8 support for the text files
-import re # Regular expressions
-import module_locator # My module.locator.py
-import time # To compare Apache log timestamps
-import datetime # To compare Apache log timestamps
-import json # JSON library
+import codecs  # UTF-8 support for the text files
+import datetime  # To compare Apache log timestamps
+import json  # JSON library
+import re  # Regular expressions
+import time  # To compare Apache log timestamps
+
+import module_locator  # My module.locator.py
+
 
 def valid_pretty_json(myjson):
     """Check that text string is valid JSON."""

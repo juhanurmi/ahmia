@@ -1,10 +1,11 @@
 """Read hidden service domains from YaCy's Solr."""
 # -*- coding: utf-8 -*-
-from urllib2 import Request
-import urllib2
 import base64
-import xml.etree.ElementTree as ET #XML
 import re
+import urllib2
+import xml.etree.ElementTree as ET  # XML
+from urllib2 import Request
+
 
 def validate_onion_url(url):
     """Test that the URL a valid onion URL."""

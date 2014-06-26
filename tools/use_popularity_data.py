@@ -1,11 +1,14 @@
 """Use the data from Tor2web nodes."""
 # -*- coding: utf-8 -*-
-import urllib3 #To HTTP requests
-import codecs # UTF-8 support for the text files
-import json # JSON library
-import datetime # Timestamp to each JSON file
-import os # Reading directories
-import module_locator # My module.locator.py
+import codecs  # UTF-8 support for the text files
+import datetime  # Timestamp to each JSON file
+import json  # JSON library
+import os  # Reading directories
+
+import urllib3  # To HTTP requests
+
+import module_locator  # My module.locator.py
+
 
 def read_file(filename):
     """Read a file and return the text content."""

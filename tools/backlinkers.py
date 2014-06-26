@@ -1,9 +1,11 @@
 """This program tests the popularity of the target sites.
 Give list of target sites and host of the backlinker."""
 
-import urllib3 #To HTTP requests
-from bs4 import BeautifulSoup #To parse HTML
-import argparse #To command line arguments
+import argparse  # To command line arguments
+
+import urllib3  # To HTTP requests
+from bs4 import BeautifulSoup  # To parse HTML
+
 
 def load_content(site, host, links):
     """Tests a site."""

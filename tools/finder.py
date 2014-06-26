@@ -1,7 +1,8 @@
 """Use the data from Tor2web nodes."""
 # -*- coding: utf-8 -*-
-import urllib3 #To HTTP requests
-from bs4 import BeautifulSoup # To parse HTML
+import urllib3  # To HTTP requests
+from bs4 import BeautifulSoup  # To parse HTML
+
 
 def load_adapters():
     """Call all the URL find adapters."""

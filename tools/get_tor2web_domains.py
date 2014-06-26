@@ -1,9 +1,11 @@
 """Load each tor2web node's visited domain list."""
 # -*- coding: utf-8 -*-
-import urllib3 #To HTTP requests
-import codecs # UTF-8 support for the text files
-import json # JSON library
-import datetime # Timestamp to each JSON file
+import codecs  # UTF-8 support for the text files
+import datetime  # Timestamp to each JSON file
+import json  # JSON library
+
+import urllib3  # To HTTP requests
+
 
 def text2file(txt, filename):
     """Write the txt to the file."""

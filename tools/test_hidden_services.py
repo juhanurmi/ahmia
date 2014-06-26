@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """Test all hidden service's: HTTP GET tells if the service is online."""
-from urllib2 import Request
-import urllib2
-import signal, time # To timeout the TCP/HTTP connection
 import httplib
-import socks
-import simplejson
-from bs4 import BeautifulSoup # To parse HTML
+import signal  # To timeout the TCP/HTTP connection
 import socket
+import time
+import urllib2
+from urllib2 import Request
+
+import simplejson
+import socks
+from bs4 import BeautifulSoup  # To parse HTML
+
 socket.setdefaulttimeout(80) # Timeout after 1min 20s
 
 class SocksiPyConnection(httplib.HTTPConnection):

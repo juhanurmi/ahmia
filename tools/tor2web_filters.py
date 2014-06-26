@@ -1,8 +1,11 @@
 """This program downloads the filtering policies from tor2web nodes."""
 # -*- coding: utf-8 -*-
-import urllib3 #To HTTP requests
-import codecs # UTF-8 support for the text files
-import module_locator # My module.locator.py
+import codecs  # UTF-8 support for the text files
+
+import urllib3  # To HTTP requests
+
+import module_locator  # My module.locator.py
+
 
 def get_md5list(node):
     """Send HTTP GET request to download JSON list."""

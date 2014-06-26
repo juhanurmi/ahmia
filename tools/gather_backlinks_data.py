@@ -1,14 +1,17 @@
 """Gather backlinking information."""
 # -*- coding: utf-8 -*-
-import urllib3 #To HTTP requests
-import codecs # UTF-8 support for the text files
-import json # JSON library
-import datetime # Timestamp to each JSON file
-import os # Reading directories
-import module_locator # My module.locator.py
-import subprocess # To call command line
-import time # For sleep()
-import random # For random sleep time
+import codecs  # UTF-8 support for the text files
+import datetime  # Timestamp to each JSON file
+import json  # JSON library
+import os  # Reading directories
+import random  # For random sleep time
+import subprocess  # To call command line
+import time  # For sleep()
+
+import urllib3  # To HTTP requests
+
+import module_locator  # My module.locator.py
+
 
 def text2file(txt, filename):
     """Write the txt to the file."""

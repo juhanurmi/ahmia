@@ -1,6 +1,7 @@
 """ This code returns the path of the Python script executed. """
-import sys
 import os
+import sys
+
 
 def we_are_frozen():
     """ All of the modules are built-in to the interpreter, e.g., by py2exe """

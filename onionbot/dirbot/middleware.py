@@ -18,16 +18,16 @@ from urlparse import urlparse
 
 from scrapy import log
 from scrapy.exceptions import IgnoreRequest
-from scrapy.http.response.html import HtmlResponse
 
 
 class ProxyMiddleware(object):
     """Middleware for .onion addresses."""
     def process_request(self, request, spider):
-	parsed_uri = urlparse( request.url )
-	domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-	if ".onion" in domain and not ".onion." in domain:
-        	request.meta['proxy'] = "http://127.0.0.1:8118"
+        parsed_uri = urlparse( request.url )
+        domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        if ".onion" in domain and not ".onion." in domain:
+            request.meta['proxy'] = "http://127.0.0.1:8118"
+
 
 
 # Middleware to exclude any response type that isn't in a whitelist

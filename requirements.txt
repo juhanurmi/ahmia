@@ -1,8 +1,13 @@
 Django==1.6.5
+PyYAML==3.11
 SocksiPy-branch==1.01
 argparse==1.2.1
 beautifulsoup4==4.3.2
+dirbot==1.0
+html2text==2014.7.3
 lxml==3.3.5
+nltk==2.0.4
+psycopg2==2.5.3
 simplejson==3.5.2
 urllib3==1.8.2
 wsgiref==0.1.2

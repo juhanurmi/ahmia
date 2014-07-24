@@ -1,7 +1,7 @@
 from scrapy.item import Field, Item
 
 
-class Website(Item):
+class CrawledWebsiteItem(Item):
 
     domain = Field()
     url = Field()

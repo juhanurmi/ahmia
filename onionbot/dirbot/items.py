@@ -1,8 +1,15 @@
-from scrapy.item import Item, Field
+from scrapy.item import Field, Item
 
 
 class Website(Item):
 
-    name = Field()
-    description = Field()
+    domain = Field()
     url = Field()
+    title = Field()
+    keywords = Field()
+    h1 = Field()
+    h2 = Field()
+    h3 = Field()
+    h4 = Field()
+    text = Field()
+    words = Field()

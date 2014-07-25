@@ -2,10 +2,8 @@
 
 import os
 import re
-from urlparse import urlparse
 
 import html2text
-from nltk.stem import PorterStemmer
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.selector import HtmlXPathSelector
@@ -44,45 +42,28 @@ class OnionSpider(CrawlSpider):
         string = converter.handle(decoded_html)
         return string
 
-    def word_count(self, html_string):
+    def extract_words(self, html_string):
         """Stems and counts the words. Works only in English!"""
         string_list = re.split(r' |\n|#|\*', html_string)
-        words = {}
-        port = PorterStemmer()
+        words = []
         for word in string_list:
 	    # Word must be longer than 1 letter
 	    # And shorter than 45
-            # The longest word in a major dictionary is
+        # The longest word in a major dictionary is
 	    # Pneumonoultramicroscopicsilicovolcanoconiosis (45 letters)
             if len(word) > 1 and len(word) <= 45:
                 word = word.lower()
-                word = port.stem(word)
-                if word in words:
-                    words[word] = words[word] + 1
-                else:
-                    test_word = word + "\n"
-                    if not test_word in self.stopwords:
-                        words[word] = 1
-	    # Remove long words
-            elif len(word) > 45:
-                html_string.replace(word, "")
-        return html_string, words
+                test_word = word + "\n"
+                if not test_word in self.stopwords:
+                    words.append(word)
+        return words
 
     def parse_items(self, response):
         hxs = HtmlXPathSelector(response)
         item = CrawledWebsiteItem()
-        parsed_uri = urlparse( response.url )
-        domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-        item['domain'] = domain
-        item['url'] = response.url
-        item ['title'] = hxs.xpath('//title/text()').extract()
-        item['keywords'] = hxs.xpath('//keywords/text()').extract()
-        item['h1'] = hxs.xpath('//h1/text()').extract()
-        item['h2'] = hxs.xpath('//h2/text()').extract()
-        item['h3'] = hxs.xpath('//h3/text()').extract()
-        item['h4'] = hxs.xpath('//h1/text()').extract()
+        item['id'] = response.url
+        item['title'] = hxs.xpath('//title/text()').extract()
         body_text = self.html2string(response)
-        html_string, words = self.word_count(body_text)
-        item['text'] = html_string
-        item['words'] = words
+        words = self.extract_words(body_text)
+        item['text'] = words
         return item

@@ -36,7 +36,7 @@ Spider: OnionSpider
 Middlewares
 ===========
 
-Middlewares define HTTP proxy for .onion domains. 
+Middlewares define HTTP proxy for .onion domains.
 Note that only .onion domains can be crawled using the HTTP proxy.
 
 Furthermore, non-text responses are filtered out.
@@ -45,7 +45,7 @@ Pipelines
 =========
 
 This project uses a pipeline to filter out some websites
-This pipeline is defined in the 
+This pipeline is defined in the
 class::
 
     dirbot.pipelines.FilterPipeline
@@ -55,3 +55,9 @@ See
 class::
 
     dirbot.pipelines.DjangoPipeline
+
+http://localhost:8080/solr/update?stream.body=%3Cdelete%3E%3Cquery%3E*:*%3C/query%3E%3C/delete%3E&commit=true
+sudo cp onionbot/stopwords_en.txt /etc/solr/conf/
+sudo service tomcat6 restart
+python inject.py items.json http://127.0.0.1:8080/solr/
+http://127.0.0.1:8080/solr/select/?q=*%3A*&version=2.2&start=0&rows=10&indent=on

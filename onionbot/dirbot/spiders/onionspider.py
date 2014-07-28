@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-import os
 import re
 
 import html2text
@@ -25,11 +24,6 @@ class OnionSpider(CrawlSpider):
         Rule (SgmlLinkExtractor(), callback="parse_items", follow= True),
     )
 
-    file_name = os.path.dirname(os.path.abspath(__file__)) + "/stemmed_stopwords.txt"
-
-    with open(file_name) as file:
-        stopwords = file.readlines()
-
     def detect_encoding(self, response):
         return response.headers.encoding or "utf-8"
 
@@ -47,23 +41,21 @@ class OnionSpider(CrawlSpider):
         string_list = re.split(r' |\n|#|\*', html_string)
         words = []
         for word in string_list:
-	    # Word must be longer than 1 letter
-	    # And shorter than 45
-        # The longest word in a major dictionary is
-	    # Pneumonoultramicroscopicsilicovolcanoconiosis (45 letters)
-            if len(word) > 1 and len(word) <= 45:
-                word = word.lower()
-                test_word = word + "\n"
-                if not test_word in self.stopwords:
-                    words.append(word)
+            # Word must be longer than 0 letter
+            # And shorter than 45
+            # The longest word in a major dictionary is
+            # Pneumonoultramicroscopicsilicovolcanoconiosis (45 letters)
+            if len(word) > 0 and len(word) <= 45:
+                words.append(word)
         return words
 
     def parse_items(self, response):
         hxs = HtmlXPathSelector(response)
         item = CrawledWebsiteItem()
-        item['id'] = response.url
-        item['title'] = hxs.xpath('//title/text()').extract()
+        item['url'] = response.url
+        title_list = hxs.xpath('//title/text()').extract()
+        item['title'] = ' '.join(title_list)
         body_text = self.html2string(response)
         words = self.extract_words(body_text)
-        item['text'] = words
+        item['text'] = " ".join(words)
         return item

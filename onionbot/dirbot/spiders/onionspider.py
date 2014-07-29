@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import datetime
 import re
 
 import html2text
@@ -58,4 +59,6 @@ class OnionSpider(CrawlSpider):
         body_text = self.html2string(response)
         words = self.extract_words(body_text)
         item['text'] = " ".join(words)
+        time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+        item['date_inserted'] = time_now
         return item

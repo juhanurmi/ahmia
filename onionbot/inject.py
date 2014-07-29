@@ -13,7 +13,10 @@ Data schema is:
 </doc>
 """
 import argparse
+import datetime  # ############
+import hashlib
 import json
+from urlparse import urlparse
 
 import pysolr
 
@@ -26,13 +29,22 @@ solr = pysolr.Solr(args.solr_url, timeout=10)
 
 items = json.load(open(args.input_file))
 
-# Add IDs
-index = 1
+##############
+time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
 for item in items:
+    index = hashlib.sha256(item['url']).hexdigest()
     item['id'] = 'ahmia.websiteindex.' + str(index)
     item['django_ct'] = 'ahmia.websiteindex'
     item['django_id'] = index
-    item['text'] = item['title'] + item['text'] + item['url']
-    index = index + 1
+    parsed_uri = urlparse( item['url'] )
+    domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    item['domain'] = domain
+    tor2web = domain.replace(".onion", ".tor2web.fi")
+    item['tor2web_url'] = item['url'].replace(domain, tor2web)
+    if not item.get('date_inserted'):
+        item['date_inserted'] = time_now ##############
+    #Delete the old information
+    solr.delete(id=item['id'])
 
 solr.add(items)

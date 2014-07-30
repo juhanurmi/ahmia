@@ -48,14 +48,9 @@ The items scraped by this project are websites, and the item is defined in the
 
     dirbot.items.CrawledWebsiteItem
 
-Which is:
+and the data is
 
-    domain = Field()
-    url = Field()
-    tor2web_url = Field()
-    title = Field()
-    text = Field()
-    date_inserted = Field()
+    domain, url, tor2web_url, title, text, date_inserted
 
 Spiders
 =======

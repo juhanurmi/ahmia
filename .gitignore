@@ -2,3 +2,4 @@
 *.bak
 venv/
 ahmia_db
+onionbot/*.json

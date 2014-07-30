@@ -4,7 +4,6 @@ SocksiPy-branch==1.01
 argparse==1.2.1
 beautifulsoup4==4.3.2
 cssselect==0.9.1
-dirbot==1.0
 django-haystack==2.1.0
 html2text==2014.7.3
 lxml==3.3.5

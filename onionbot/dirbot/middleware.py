@@ -26,7 +26,7 @@ class ProxyMiddleware(object):
         parsed_uri = urlparse( request.url )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         if ".onion" in domain and not ".onion." in domain:
-            request.meta['proxy'] = "http://127.0.0.1:8118"
+            request.meta['proxy'] = "http://localhost:8118"
 
 
 

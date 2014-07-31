@@ -13,6 +13,9 @@ ROBOTSTXT_OBEY = True
 
 DOWNLOADER_MIDDLEWARES = {
     'dirbot.middleware.ProxyMiddleware': 410,
+    'dirbot.middleware.IgnoreUrlsMiddleware': 411,
     'dirbot.middleware.FilterResponses': 999,
     'scrapy.contrib.downloadermiddleware.robotstxt.RobotsTxtMiddleware': 100,
 }
+
+ITEM_PIPELINES = {'dirbot.pipelines.SolrPipeline': 1}

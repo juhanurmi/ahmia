@@ -9,7 +9,7 @@ Short guide to Onionbot
 -----------------------
 
 - Install Tor in Tor2web mode
-- Install Privoxy
+- Install Polipo
 - Install Solr
 
 Make sure your Solr is empty (delete all):
@@ -25,6 +25,13 @@ $ cp /etc/solr/conf/schema.xml schema.xml.backup
 $ sudo cp ahmia/solr/schema.xml /etc/solr/conf/schema.xml
 $ sudo cp ahmia/solr/stopwords_en.txt /etc/solr/conf/
 $ sudo service tomcat6 restart
+```
+
+Setup Polipo:
+
+```sh
+$ cp ahmia/polipo_conf /etc/polipo/config
+$ service polipo restart
 ```
 
 Edit the crawler's DEPTH_LIMIT = 1:

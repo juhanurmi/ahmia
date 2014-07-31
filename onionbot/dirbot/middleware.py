@@ -1,24 +1,48 @@
 """Proxy middleware to support .onion addresses."""
 
-# Install privoxy
-#
-# sudo nano /etc/privoxy/config
-# add one of the following line
-# forward-socks5 / 127.0.0.1:9050 .
-#
-# restart it
-# sudo /etc/init.d/privoxy restart
+# Install Polipo
+# and setup Polipo http://localhost:8123/
 
 # Install Tor with Tor2web mode
 
 # Direct every request to .onion sites to privoxy that uses Tor
 
+import datetime
+import hashlib
 import re
 from urlparse import urlparse
 
+import pysolr
 from scrapy import log
 from scrapy.exceptions import IgnoreRequest
 
+
+class IgnoreUrlsMiddleware(object):
+    """
+    Middleware to check is this URL crawled lately and
+    ignores those URLs that have been crawled.
+    """
+    def process_request(self, request, spider):
+        url = request.url
+        id_str = 'ahmia.websiteindex.' + hashlib.sha256(url).hexdigest()
+        solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
+        results = solr.search("id:"+id_str)
+        time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+        # If there are duplicate IDs in the Solr database
+        if len(results) > 1:
+            # This should never happend
+            raise Exception("Error in the Solr database! Duplicate IDs!")
+        for result in results:
+            created = result['date_inserted']
+            created = datetime.datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ')
+            time_now = datetime.datetime.strptime(time_now, '%Y-%m-%dT%H:%M:%SZ')
+            delta = time_now - created
+            if delta.days < 7:
+                # Do not execute this request
+                request.meta['proxy'] = ""
+                msg = "Ignoring request {}, URL has been crawled.".format(request.url)
+                log.msg(msg, level=log.INFO)
+                raise IgnoreRequest()
 
 class ProxyMiddleware(object):
     """Middleware for .onion addresses."""
@@ -26,7 +50,7 @@ class ProxyMiddleware(object):
         parsed_uri = urlparse( request.url )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         if ".onion" in domain and not ".onion." in domain:
-            request.meta['proxy'] = "http://localhost:8118"
+            request.meta['proxy'] = "http://localhost:8123/"
 
 
 
@@ -34,7 +58,7 @@ class ProxyMiddleware(object):
 
 
 class FilterResponses(object):
-    """Limit the HTTP response types that Scrapy dowloads."""
+    """Limit the HTTP response types that Scrapy downloads."""
 
     @staticmethod
     def is_valid_response(type_whitelist, content_type_header):

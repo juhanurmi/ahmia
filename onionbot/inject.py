@@ -46,5 +46,4 @@ for item in items:
         item['date_inserted'] = time_now ##############
     #Delete the old information
     solr.delete(id=item['id'])
-
-solr.add(items)
+    solr.add([item])

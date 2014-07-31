@@ -46,12 +46,6 @@ Run the crawler software:
 $ scrapy crawl OnionSpider -o items.json -t json
 ```
 
-Inject the JSON data to Solr:
-
-```sh
-$ python inject.py items.json http://127.0.0.1:8080/solr/
-```
-
 Test your Sorl:
 
 ```sh

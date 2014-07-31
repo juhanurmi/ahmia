@@ -15,9 +15,6 @@ class OnionSpider(CrawlSpider):
     allowed_domains = ["onion"]
     start_urls = [
         "https://ahmia.fi/address/",
-        "http://deepweblinks.org/",
-        "https://skunksworkedp2cg.tor2web.fi/",
-
     ]
 
     rules = (

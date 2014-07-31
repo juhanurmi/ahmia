@@ -23,5 +23,5 @@ class SolrPipeline(object):
         #Delete the old information
         solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
         solr.delete(id=item['id'])
-        solr.add(item)
+        solr.add([item])
         return item

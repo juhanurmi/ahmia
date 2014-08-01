@@ -8,17 +8,18 @@ https://ahmia.fi/
 Compatibility
 -------------
 
-Ahmia requires Python 2.7+ and Django 1.6+ and YaCy
+Ahmia requires Python 2.7+ and Django 1.6+
+
+The crawler is called Onionbot and it requires Apache Solr for the data.
 
 Installation
 ------------
 
-- Currently, ahmia is listening YaCy from 10.8.0.10:8090.
-- The YaCy connection is defined in settings.py.
-- HTTP server is required.
-- Please see /apache2/ to setup to run with Apache HTTP server.
-- Note the crontabs. The order of the task is important.
-- See crontabs file. It is strongly recommended to put crontask to another server than the web-server itself.
+- Currently, ahmia is listening Solr from http://127.0.0.1:33433/
+- HTTP server is required
+- Please see /apache2/ to setup to run with Apache HTTP server
+- Note the crontabs. The order of the task is important
+- See crontabs file. It is strongly recommended to put crontask to another server than the web-server itself
 
 ##### Install depencies:
 
@@ -61,7 +62,6 @@ Features
 - Privacy: ahmia saves no IP logs.
 - Filtering child abuse.
 - Popularity tracking from Tor2web nodes, public WWW backlinks and the number of clicks in the search results.
-- P2P YaCy backend.
 - Hidden service online tracker.
 
 Demo

@@ -40,7 +40,7 @@ class OnionSpider(CrawlSpider):
         for word in string_list:
             # Word must be longer than 0 letter
             # And shorter than 45
-            # The longest word in a major dictionary is
+            # The longest word in a major English dictionary is
             # Pneumonoultramicroscopicsilicovolcanoconiosis (45 letters)
             if len(word) > 0 and len(word) <= 45:
                 words.append(word)

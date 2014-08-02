@@ -14,8 +14,25 @@ from urlparse import urlparse
 
 import pysolr
 from scrapy import log
+from scrapy.conf import settings
 from scrapy.exceptions import IgnoreRequest
 
+
+class FilterBannedDomains(object):
+    """
+    Middleware to filter requests to banned domains.
+    """
+    def process_request(self, request, spider):
+        parsed_uri = urlparse(request.url)
+        domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        domain = domain.replace("http://", "").replace("https://", "").replace("/", "")
+        banned_domains = settings.get('BANNED_DOMAINS')
+        if hashlib.md5(domain).hexdigest() in banned_domains:
+            # Do not execute this request
+            request.meta['proxy'] = ""
+            msg = "Ignoring request {}, This domain is banned.".format(request.url)
+            log.msg(msg, level=log.INFO)
+            raise IgnoreRequest()
 
 class LimitLargeDomains(object):
     """
@@ -24,7 +41,7 @@ class LimitLargeDomains(object):
     def process_request(self, request, spider):
         parsed_uri = urlparse(request.url)
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-        solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
+        solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         results = solr.search('domain:"' + domain + '"')
         if results.hits > 100:
             # Do not execute this request
@@ -41,7 +58,7 @@ class IgnoreUrlsMiddleware(object):
     def process_request(self, request, spider):
         url = request.url
         id_str = 'ahmia.websiteindex.' + hashlib.sha256(url).hexdigest()
-        solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
+        solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         results = solr.search("id:"+id_str)
         time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         # If there are duplicate IDs in the Solr database
@@ -66,7 +83,7 @@ class ProxyMiddleware(object):
         parsed_uri = urlparse( request.url )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         if ".onion" in domain and not ".onion." in domain:
-            request.meta['proxy'] = "http://localhost:8123/"
+            request.meta['proxy'] = settings.get('HTTP_PROXY')
 
 
 

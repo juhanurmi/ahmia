@@ -3,6 +3,7 @@ import hashlib
 from urlparse import urlparse
 
 import pysolr
+from scrapy.conf import settings
 
 
 class SolrPipeline(object):
@@ -21,7 +22,7 @@ class SolrPipeline(object):
         time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         item['date_inserted'] = time_now
         #Delete the old information
-        solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
+        solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         solr.delete(id=item['id'])
         solr.add([item])
         return item

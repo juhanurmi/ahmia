@@ -17,6 +17,22 @@ from scrapy import log
 from scrapy.exceptions import IgnoreRequest
 
 
+class LimitLargeDomains(object):
+    """
+    Middleware to limit the number of request to large sites.
+    """
+    def process_request(self, request, spider):
+        parsed_uri = urlparse(request.url)
+        domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        solr = pysolr.Solr("http://127.0.0.1:8080/solr/", timeout=10)
+        results = solr.search('domain:"' + domain + '"')
+        if results.hits > 100:
+            # Do not execute this request
+            request.meta['proxy'] = ""
+            msg = "Ignoring request {}, More than 100 sites crawled from this domain.".format(request.url)
+            log.msg(msg, level=log.INFO)
+            raise IgnoreRequest()
+
 class IgnoreUrlsMiddleware(object):
     """
     Middleware to check is this URL crawled lately and

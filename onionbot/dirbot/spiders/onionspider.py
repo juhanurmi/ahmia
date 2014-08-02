@@ -36,6 +36,9 @@ class OnionSpider(CrawlSpider):
     def extract_words(self, html_string):
         """Stems and counts the words. Works only in English!"""
         string_list = re.split(r' |\n|#|\*', html_string)
+        # Cut a word list that is larger than 10000 words
+        if len(string_list) > 10000:
+            string_list = string_list[0:10000]
         words = []
         for word in string_list:
             # Word must be longer than 0 letter

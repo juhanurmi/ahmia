@@ -2,15 +2,15 @@
         ServerName www.ahmia.fi
         ServerAdmin hostmaster@ahmia.fi
 
-	# Do not track IP addresses!
-	LogFormat "0.0.0.0 - - %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %V" noip
+        # Do not track IP addresses!
+        LogFormat "0.0.0.0 - - %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %V" noip
 
         ErrorLog /usr/local/lib/ahmia/error/error.log
-        # Possible values include: debug, info, notice, 
+        # Possible values include: debug, info, notice,
         # warn, error, crit, alert, emerg.
         LogLevel warn
         CustomLog /usr/local/lib/ahmia/error/access.log noip
-    
+
         # redirections as follow, order is critical!
         RewriteEngine On
         RewriteLog /var/log/apache2/rewrite.log
@@ -44,11 +44,11 @@
                 Order deny,allow
                 Allow from all
         </Directory>
-        
+
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
-	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
-	Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
+        Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
+        Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
 
         ErrorLog /usr/local/lib/ahmia/error/error.log
         # Possible values include: debug, info, notice,
@@ -58,7 +58,7 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-site
-        WSGIDaemonProcess ahmia-site processes=20 threads=16 display-name=apache-ahmia-wsgi
+        WSGIDaemonProcess ahmia-site processes=2 threads=16 display-name=apache-ahmia-wsgi
 </VirtualHost>
 
 <VirtualHost 127.0.0.1:56789>
@@ -78,12 +78,12 @@
                 Order deny,allow
                 Allow from all
         </Directory>
-        
+
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
-	Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
-	Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
-	Alias /description.json "/usr/local/lib/ahmia/ahmia/static/description.json"
+        Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
+        Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
+        Alias /description.json "/usr/local/lib/ahmia/ahmia/static/description.json"
 
         ErrorLog /usr/local/lib/ahmia/error/hs_error.log
         # Possible values include: debug, info, notice,
@@ -93,5 +93,5 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-hs-site
-        WSGIDaemonProcess ahmia-hs-site processes=3 threads=16 display-name=apache-hs-ahmia-wsgi
+        WSGIDaemonProcess ahmia-hs-site processes=1 threads=16 display-name=apache-hs-ahmia-wsgi
 </VirtualHost>

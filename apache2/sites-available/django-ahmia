@@ -58,7 +58,7 @@
 
         WSGIScriptAlias / /usr/local/lib/ahmia/wsgi.py
         WSGIProcessGroup ahmia-site
-        WSGIDaemonProcess ahmia-site processes=2 threads=16 display-name=apache-ahmia-wsgi
+        WSGIDaemonProcess ahmia-site processes=4 threads=16 display-name=apache-ahmia-wsgi
 </VirtualHost>
 
 <VirtualHost 127.0.0.1:56789>

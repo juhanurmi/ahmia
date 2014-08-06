@@ -41,6 +41,15 @@ $ chown -R www-data:www-data /usr/local/lib/ahmia/
 $ chmod -R u=rwX,g=rX,o=rX /usr/local/lib/ahmia/
 ```
 
+##### Move the Apache settings and adjust WSGI processes=X threads=Y
+
+Upper limit to memory that Apache needs is X*Y*8MB. For instance, 4*16*8MB = 513MB.
+
+```sh
+cp apache2/sites-available/django-ahmia /etc/apache2/sites-available/django-ahmia
+/etc/init.d/apache2 restart
+```
+
 ##### And after creating the SQLite database:
 
 ```sh

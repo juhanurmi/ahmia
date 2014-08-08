@@ -101,7 +101,7 @@ For developers
 Please, at least, validate your Python code with:
 
 ```sh
-$ pylint --rcfile=pylint.rc /ahmia/python_code_file.py
+$ pylint --rcfile=pylint.rc ./ahmia/python_code_file.py
 ```
 
 and fix the major problems.

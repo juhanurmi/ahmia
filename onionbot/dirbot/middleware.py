@@ -39,14 +39,13 @@ class LimitLargeDomains(object):
     Middleware to limit the number of request to large sites.
     """
     def process_request(self, request, spider):
-        parsed_uri = urlparse(request.url)
-        domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        hostname = urlparse(request.url).hostname
         solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
-        results = solr.search('domain:"' + domain + '"')
-        if results.hits > 100:
+        query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
+        if len(hostname.split(".")) > 4 or solr.search(query).hits > 1000:
             # Do not execute this request
             request.meta['proxy'] = ""
-            msg = "Ignoring request {}, More than 100 sites crawled from this domain.".format(request.url)
+            msg = "Ignoring request {}, More than 1000 sites crawled from this domain.".format(request.url)
             log.msg(msg, level=log.INFO)
             raise IgnoreRequest()
 

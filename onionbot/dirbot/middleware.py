@@ -42,7 +42,7 @@ class LimitLargeDomains(object):
         hostname = urlparse(request.url).hostname
         solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
-        if len(hostname.split(".")) > 4 or solr.search(query).hits > 1000:
+        if len(hostname.split(".")) > 4 or solr.search(query).hits > settings.get('MAX_PER_DOMAIN'):
             # Do not execute this request
             request.meta['proxy'] = ""
             msg = "Ignoring request {}, More than 1000 sites crawled from this domain.".format(request.url)

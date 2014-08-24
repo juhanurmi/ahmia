@@ -69,7 +69,7 @@ class IgnoreUrlsMiddleware(object):
             created = datetime.datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ')
             time_now = datetime.datetime.strptime(time_now, '%Y-%m-%dT%H:%M:%SZ')
             delta = time_now - created
-            if delta.days < 7:
+            if delta.days < settings.get('FRESH_INTERVAL'):
                 # Do not execute this request
                 request.meta['proxy'] = ""
                 msg = "Ignoring request {}, URL has been crawled.".format(request.url)

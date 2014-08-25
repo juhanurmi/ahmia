@@ -167,9 +167,9 @@ def analyze_front_page(raw_html, onion):
             title = h1_element.string.encode('utf-8')
         if title or keywords or description:
             json_data = '{"not_official": 1, "title": "'
-            json_data = json_data + title + '", "description": "'
-            json_data = json_data + description + '", "relation": "",'
-            json_data = json_data + '"keywords": "' + description
+            json_data = json_data + title[:100] + '", "description": "'
+            json_data = json_data + description[:500] + '", "relation": "",'
+            json_data = json_data + '"keywords": "' + keywords[:200]
             json_data = json_data + '", "type": "", "language": "",'
             json_data = json_data + '"contactInformation": "" }'
             return json_data

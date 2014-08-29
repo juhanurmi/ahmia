@@ -42,14 +42,28 @@ class LimitLargeDomains(object):
         hostname = urlparse(request.url).hostname
         solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
-        if len(hostname.split(".")) > 4 or solr.search(query).hits > settings.get('MAX_PER_DOMAIN'):
+        if solr.search(query).hits > settings.get('MAX_PER_DOMAIN'):
             # Do not execute this request
             request.meta['proxy'] = ""
             msg = "Ignoring request {}, More than 1000 sites crawled from this domain.".format(request.url)
             log.msg(msg, level=log.INFO)
             raise IgnoreRequest()
 
-class IgnoreUrlsMiddleware(object):
+class SubDomainLimit(object):
+    """
+    Ignore weird sub domain loops (for instance, rss.rss...rss.rss.something.onion)
+    """
+    def process_request(self, request, spider):
+        hostname = urlparse(request.url).hostname
+        query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
+        if len(hostname.split(".")) > 4:
+            # Do not execute this request
+            request.meta['proxy'] = ""
+            msg = "Ignoring request {}, too many sub domains.".format(request.url)
+            log.msg(msg, level=log.INFO)
+            raise IgnoreRequest()
+
+class IgnoreAlreadyCrawledUrlsMiddleware(object):
     """
     Middleware to check is this URL crawled lately and
     ignores those URLs that have been crawled.

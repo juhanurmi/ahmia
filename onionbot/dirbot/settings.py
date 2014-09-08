@@ -10,6 +10,7 @@ DOWNLOAD_DELAY = 2 # 2 sec
 DEPTH_STATS = True
 DNSCACHE_ENABLED = True
 ROBOTSTXT_OBEY = True
+USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0"
 
 DOWNLOADER_MIDDLEWARES = {
     'dirbot.middleware.ProxyMiddleware': 410,

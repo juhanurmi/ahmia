@@ -1,11 +1,11 @@
-dirbot
-======
+OnionBot
+========
 
 This is a Scrapy project to crawl .onion websites from the Tor network.
 
-It requires Tor software (use Tor2web mode), Privoxy, and the data is saved to Apache Solr.
+It requires Tor software (use Tor2web mode), Polipo, and the data is saved to Apache Solr.
 
-Short guide to Onionbot
+Short guide to OnionBot
 -----------------------
 
 - Install Tor in Tor2web mode
@@ -46,10 +46,10 @@ Run the crawler software:
 $ scrapy crawl OnionSpider -o items.json -t json
 ```
 
-Test your Sorl:
+Test your Solr:
 
 ```sh
-http://127.0.0.1:8080/solr/select/?q=*%3A*&version=2.2&start=0&rows=10&indent=on
+http://127.0.0.1:33433/solr/select/?q=*%3A*&version=2.2&start=0&rows=10&indent=on
 ```
 
 Items

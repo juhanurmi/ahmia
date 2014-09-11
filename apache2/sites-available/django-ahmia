@@ -28,9 +28,9 @@
 
         # the world is evil so ssl'd it shall be
         SSLEngine On
-        SSLProtocol all -SSLv2
+        SSLProtocol all -SSLv2 -SSLv3
         SSLHonorCipherOrder On
-        SSLCipherSuite EECDH+AES:EDH+AES:-SHA1:EECDH+RC4:EDH+RC4:RC4-SHA:EECDH+AES256:EDH+AES256:AES256-SHA:!aNULL:!eNULL:!EXP:!LOW:!MD5
+        SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS"
         SSLCertificateFile /etc/apache2/ssl/crt/ahmia.crt
         SSLCertificateKeyFile /etc/apache2/ssl/key/ahmia.key
         SSLCertificateChainFile /etc/apache2/ssl/ca/sub.class2.server.sha1.ca.pem

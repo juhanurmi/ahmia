@@ -52,6 +52,18 @@ Test your Solr:
 http://127.0.0.1:33433/solr/select/?q=*%3A*&version=2.2&start=0&rows=10&indent=on
 ```
 
+Delete a domain aaaaaaaaaaaaaaaa:
+
+```sh
+curl "http://localhost:33433/solr/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>domain:*aaaaaaaaaaaaaaaa*</query></delete>"
+```
+
+Delete old data, older than 14 days:
+
+```sh
+curl "http://localhost:33433/solr/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>date_inserted:[* TO NOW-14DAYS]</query></delete>"
+```
+
 Items
 -----
 

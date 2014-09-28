@@ -17,6 +17,7 @@ DOWNLOADER_MIDDLEWARES = {
     #'dirbot.middleware.LimitLargeDomains': 411,
     #'dirbot.middleware.IgnoreAlreadyCrawledUrlsMiddleware': 412,
     'dirbot.middleware.SubDomainLimit': 413,
+    'dirbot.middleware.FilterBannedDomains': 414,
     'dirbot.middleware.FilterResponses': 999,
     'scrapy.contrib.downloadermiddleware.robotstxt.RobotsTxtMiddleware': 100,
 }
@@ -24,12 +25,16 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {'dirbot.pipelines.SolrPipeline': 1}
 
 BANNED_DOMAINS = [
+    'c8d0f382c358ae005e70c304c4a36071',
     '642b2830188c780e5b2ed01c07b69a6b',
+    'f9ff5c6d6df78cd4ec9592b82e0e18cd',
     'cdc99ab59cb5eb16ddd16ef8bb439cd3',
     '25acdfa56f6a20003763b28e7881ff5a',
     'e2d01757d9b8d81bbb659f807ffec016',
-    'b19fb628ff498ad6da4faca70400dfcd',
+    '66a5547357ef3f224f0aa8eae9d9178f',
     'f2ce1f1c2dd8e7622df68c73cf37e262',
+    'a436778a57e2ae8d0477ee5198391265',
+    'e4a82a117460261beae528291a864c13',
     '8d052ff91190018a0f0c655c093e9e14'
     ]
 

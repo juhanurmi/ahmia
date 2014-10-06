@@ -59,21 +59,25 @@ def main():
     links = pool.request('GET', url).data
     links = links.replace(".onion/", "").replace("http://", "").split('\n')
     for onion_id in links:
-        # Random delay 3min + 1-60 seconds
-        delay_time = 180 + random.randrange(1, 60)
-        time.sleep(delay_time)
-        if not onion_id:
-            continue
-        content_type = {'Content-Type':'application/json'}
-        onion_url = 'http://' + onion_id + '.onion/'
-        print onion_url
-        backlinks = str(get_backlinks(onion_url))
-        url = 'https://127.0.0.1:45454/address/' + onion_id + "/popularity/"
-        data = '{"date": "' + timestamp + '", "tor2web_access_count": '
-        data = data + '0, "backlinks": ' + backlinks + '}'
-        print data
-        save_popularity_data(data, onion_id)
-        pool.urlopen('PUT', url, headers=content_type, body=data)
+        try:
+            # Random delay 3min + 1-60 seconds
+            delay_time = 180 + random.randrange(1, 60)
+            time.sleep(delay_time)
+            if not onion_id:
+                continue
+            content_type = {'Content-Type':'application/json'}
+            onion_url = 'http://' + onion_id + '.onion/'
+            print onion_url
+            backlinks = str(get_backlinks(onion_url))
+            url = 'https://127.0.0.1:45454/address/' + onion_id + "/popularity/"
+            data = '{"date": "' + timestamp + '", "tor2web_access_count": '
+            data = data + '0, "backlinks": ' + backlinks + '}'
+            print data
+            save_popularity_data(data, onion_id)
+            pool.urlopen('PUT', url, headers=content_type, body=data)
+        except Exception:
+            import traceback
+            print 'generic exception: ' + traceback.format_exc()
 
 if __name__ == '__main__':
     main()

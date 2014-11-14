@@ -3,7 +3,6 @@
 import httplib
 import signal  # To timeout the TCP/HTTP connection
 import socket
-import time
 import urllib2
 from urllib2 import Request
 
@@ -12,6 +11,41 @@ import socks
 from bs4 import BeautifulSoup  # To parse HTML
 
 socket.setdefaulttimeout(80) # Timeout after 1min 20s
+
+class MyHTTPRedirectHandler(urllib2.HTTPRedirectHandler):
+    def http_error_302(self, req, fp, code, msg, headers):
+        return str(code) + ":::" + headers['Location']
+        #return urllib2.HTTPRedirectHandler.http_error_302(self, req, fp, code, msg, headers)
+
+    http_error_301 = http_error_303 = http_error_307 = http_error_302
+
+class SocksiPyConnection_SSL(httplib.HTTPSConnection):
+    """Socks connection for HTTPS."""
+    def __init__(self, proxytype, proxyaddr, proxyport=None, rdns=True,
+    username=None, password=None, *args, **kwargs):
+        self.proxyargs = (proxytype, proxyaddr, proxyport, rdns,
+        username, password)
+        httplib.HTTPSConnection.__init__(self, *args, **kwargs)
+    def connect(self):
+        self.sock = socks.socksocket()
+        self.sock.setproxy(*self.proxyargs)
+        if isinstance(self.timeout, float):
+            self.sock.settimeout(self.timeout)
+        self.sock.connect((self.host, self.port))
+
+class SocksiPyHandler_SSL(urllib2.HTTPSHandler):
+    """Socks connection for HTTPS."""
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kw = kwargs
+        urllib2.HTTPSHandler.__init__(self)
+    def http_open(self, req):
+        def build(host, port=None, strict=None, timeout=0):
+            """Build connection."""
+            conn = SocksiPyConnection_SSL(*self.args, host=host, port=port,
+            strict=strict, timeout=timeout, **self.kw)
+            return conn
+        return self.do_open(build, req)
 
 class SocksiPyConnection(httplib.HTTPConnection):
     """Socks connection for HTTP."""
@@ -90,6 +124,7 @@ def send_put(url, data):
     req.add_data(data)
     req.get_method = lambda: 'PUT'
     if not open_req(req):
+        print "Updating failed:"
         print url
         print data
 
@@ -100,12 +135,13 @@ def main():
     for link in links:
         if not link:
             continue
-        print link
         put_url = 'https://127.0.0.1:45454/address/'
         hs_id = link[7:-7]
         put_url = put_url + hs_id + "/status"
-        data = hs_online_check(hs_id)
+        data = hs_online_check('http://'+str(hs_id)+'.onion/', put_url)
         send_put(put_url, data)
+        #data = hs_online_check('https://'+str(hs_id)+'.onion/', put_url)
+        #send_put(put_url, data)
 
 def get2txt(url):
     """Read from URL."""
@@ -113,40 +149,67 @@ def get2txt(url):
     try:
         txt = urllib2.urlopen(url).read()
         return txt
-    except urllib2.HTTPError:
+    except urllib2.HTTPError as error:
+        print error
         return txt
 
-def hs_online_check(onion):
+def hs_online_check(onion, put_url):
     """Online check for hidden service."""
     try:
-        return hs_http_checker(onion)
+        print onion
+        return hs_http_checker(onion, put_url)
     except Exception as error:
+        print "Returned nothing."
         print error
         return ""
 
-def hs_http_checker(onion):
+def hs_http_checker(onion, put_url):
     """Socks connection to the Tor network. Try to download an onion."""
-    socks_con = SocksiPyHandler(socks.PROXY_TYPE_SOCKS4, '127.0.0.1', 9050)
-    opener = urllib2.build_opener(socks_con)
-    return hs_downloader(opener, onion)
+    if onion[:5] == "https":
+        socks_con = SocksiPyHandler_SSL(socks.PROXY_TYPE_SOCKS4, '127.0.0.1', 9050)
+    else:
+        socks_con = SocksiPyHandler(socks.PROXY_TYPE_SOCKS4, '127.0.0.1', 9050)
+    opener = urllib2.build_opener(MyHTTPRedirectHandler, socks_con)
+    header = "Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0"
+    opener.addheaders = [('User-agent', header)]
+    return hs_downloader(opener, onion, put_url)
 
-def hs_downloader(opener, onion):
+def hs_downloader(opener, onion, put_url):
     """Try to download the front page and description.json."""
-    handle = opener.open('http://'+str(onion)+'.onion/')
+    test_handle = opener.open(onion)
+    if ":::" in test_handle:
+        print "Redirect..."
+        redirect_json = build_json_answer(onion)
+        send_put(put_url, redirect_json)
+        handle = opener.open(test_handle.split(":::")[1])
+    else:
+        handle = test_handle
     code = handle.getcode()
     print "Site answers to the online check with code %d." % code
     if code != 404: # It is up
-        json_html = analyze_front_page(handle.read(), onion)
+        json_html = analyze_front_page(handle.read())
         json_official = hs_download_description(opener, onion)
         if json_official:
             json_data = json_official
-        else:
+        elif json_html:
             json_data = json_html
+        else:
+            json_data = build_json_answer(onion)
         return json_data
     else:
         return ""
 
-def analyze_front_page(raw_html, onion):
+def build_json_answer(onion):
+    """Make a JSON string."""
+    json_data = '{"not_official": 1, "title": "'
+    json_data = json_data + str(onion) + '", "description": "'
+    json_data = json_data + '", "relation": "",'
+    json_data = json_data + '"keywords": "'
+    json_data = json_data + '", "type": "", "language": "",'
+    json_data = json_data + '"contactInformation": "" }'
+    return json_data
+
+def analyze_front_page(raw_html):
     """Analyze raw HTML page."""
     try:
         soup = BeautifulSoup(raw_html)
@@ -175,13 +238,14 @@ def analyze_front_page(raw_html, onion):
             return json_data
         else:
             return ""
-    except:
+    except Exception as error:
+        print error
         return ""
 
 def hs_download_description(opener, onion):
     """Try to download description.json."""
     try:
-        dec_url = 'http://'+str(onion)+'.onion/description.json'
+        dec_url = str(onion)+'description.json'
         handle = opener.open(dec_url)
         descr = handle.read()
         # There cannot be that big descriptions
@@ -190,7 +254,8 @@ def hs_download_description(opener, onion):
             descr = descr.replace('\n', '')
             simplejson.loads(descr)
             return descr
-    except:
+    except Exception as error:
+        print error
         return ""
 
 if __name__ == '__main__':

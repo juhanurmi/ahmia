@@ -24,7 +24,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.robotstxt.RobotsTxtMiddleware': 100,
 }
 
-#ITEM_PIPELINES = {'dirbot.pipelines.SolrPipeline': 1}
+ITEM_PIPELINES = {'dirbot.pipelines.SolrPipeline': 1}
 
 BANNED_DOMAINS = [
     '4006fd82782ad54277439b78ef96f075',

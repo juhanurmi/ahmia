@@ -156,6 +156,8 @@
 
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
 
+    <field name="content_auto" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
+
     <field name="date_inserted" type="date" indexed="true" stored="true" multiValued="false" />
 
   </fields>

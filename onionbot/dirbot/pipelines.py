@@ -14,6 +14,7 @@ class SolrPipeline(object):
         item['id'] = 'ahmia.websiteindex.' + str(index)
         item['django_ct'] = 'ahmia.websiteindex'
         item['django_id'] = index
+        item['crawling_session'] = settings.get('CRAWLING_SESSION')
         parsed_uri = urlparse( item['url'] )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         item['domain'] = domain

@@ -15,7 +15,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0"
 DOWNLOADER_MIDDLEWARES = {
     'dirbot.middleware.ProxyMiddleware': 410,
     'dirbot.middleware.LimitLargeDomains': 411,
-    #'dirbot.middleware.IgnoreAlreadyCrawledUrlsMiddleware': 412,
+    'dirbot.middleware.IgnoreAlreadyCrawledUrlsMiddleware': 412,
     'dirbot.middleware.SubDomainLimit': 413,
     'dirbot.middleware.FilterBannedDomains': 414,
     'dirbot.middleware.FilterResponses': 999,
@@ -44,4 +44,4 @@ BANNED_DOMAINS = [
 SOLR_CONNECTION = "http://127.0.0.1:8080/solr/" # Connection to Solr
 MAX_PER_DOMAIN = 100 # Max sites per domain
 HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
-FRESH_INTERVAL = 7 # Days to pass between re-crawling
+FRESH_INTERVAL = 30 # Days to pass between re-crawling

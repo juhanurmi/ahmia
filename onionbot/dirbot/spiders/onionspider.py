@@ -54,8 +54,9 @@ class OnionSpider(CrawlSpider):
         item = CrawledWebsiteItem()
         item['url'] = response.url
         title_list = hxs.xpath('//title/text()').extract()
-        item['title'] = ' '.join(title_list)
+        title = ' '.join(title_list)
+        item['title'] = title
         body_text = self.html2string(response)
         words = self.extract_words(body_text)
-        item['text'] = " ".join(words)
+        item['text'] = title + " " + " ".join(words)
         return item

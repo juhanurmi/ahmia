@@ -63,7 +63,7 @@ class SubDomainLimit(object):
             log.msg(msg, level=log.INFO)
             raise IgnoreRequest()
 
-class IgnoreAlreadyCrawledUrlsMiddleware(object):
+class LimitMiddleware(object):
     """
     Middleware to check is this URL crawled lately and
     ignores those URLs that have been crawled.

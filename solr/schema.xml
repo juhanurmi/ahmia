@@ -148,17 +148,25 @@
 
     <field name="domain" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="tor2web_url" type="text_en" indexed="true" stored="true" multiValued="false" />
-
     <field name="title" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="url" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
 
-    <field name="content_auto" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
+    <field name="h1" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="server_header" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="h2" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="date_inserted" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="tor2web_url" type="text_en" indexed="true" stored="true" multiValued="false" />
+
+    <field name="content_auto" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
+
+    <field name="crawling_session" type="text_en" indexed="true" stored="true" multiValued="false" />
 
   </fields>
 

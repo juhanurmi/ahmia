@@ -53,7 +53,7 @@ class OnionSpider(CrawlSpider):
         hxs = HtmlXPathSelector(response)
         item = CrawledWebsiteItem()
         item['url'] = response.url
-        item['header'] = str(response.headers)
+        item['server_header'] = str(response.headers)
         title_list = hxs.xpath('//title/text()').extract()
         h1_list = hxs.xpath("//h1/text()").extract()
         item['h1'] = " ".join(h1_list)

@@ -34,6 +34,22 @@ class FilterBannedDomains(object):
             log.msg(msg, level=log.INFO)
             raise IgnoreRequest()
 
+class LimitDomainsPerCrawl(object):
+    """
+    Middleware to limit the number of request to large sites per crawling session.
+    """
+    def process_request(self, request, spider):
+        hostname = urlparse(request.url).hostname
+        solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
+        query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
+        query = query + " AND crawling_session:" + settings.get('CRAWLING_SESSION')
+        if solr.search(query).hits > settings.get('MAX_PER_DOMAIN'):
+            # Do not execute this request
+            request.meta['proxy'] = ""
+            msg = "Ignoring request {}, More than 1000 sites crawled from this domain.".format(request.url)
+            log.msg(msg, level=log.INFO)
+            raise IgnoreRequest()
+
 class LimitLargeDomains(object):
     """
     Middleware to limit the number of request to large sites.
@@ -55,7 +71,6 @@ class SubDomainLimit(object):
     """
     def process_request(self, request, spider):
         hostname = urlparse(request.url).hostname
-        query = 'domain:*' + hostname.split(".")[-2] + '.onion*'
         if len(hostname.split(".")) > 4:
             # Do not execute this request
             request.meta['proxy'] = ""

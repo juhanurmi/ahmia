@@ -22,6 +22,12 @@ class SolrPipeline(object):
         item['tor2web_url'] = item['url'].replace(domain, tor2web)
         time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         item['date_inserted'] = time_now
+
+        # Do not save the content of the banned sites
+        banned_domains = settings.get('BANNED_DOMAINS')
+        if hashlib.md5(domain).hexdigest() in banned_domains:
+            item['text'] = ""
+
         #Delete the old information
         solr = pysolr.Solr(settings.get('SOLR_CONNECTION'), timeout=10)
         solr.delete(id=item['id'])

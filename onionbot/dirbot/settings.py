@@ -37,6 +37,6 @@ for md5 in response.text.split("\n"):
         BANNED_DOMAINS.append(md5)
 
 SOLR_CONNECTION = "http://127.0.0.1:8080/solr/" # Connection to Solr
-MAX_PER_DOMAIN = 10 # Max sites per domain
+MAX_PER_DOMAIN = 1000 # Max sites per domain
 HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
 FRESH_INTERVAL = 30 # Days to pass between re-crawling

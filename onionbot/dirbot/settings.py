@@ -33,7 +33,7 @@ BANNED_DOMAINS = []
 
 response = requests.get('https://ahmia.fi/banned/')
 for md5 in response.text.split("\n"):
-    if len(md5) is 35:
+    if len(md5) is 32:
         BANNED_DOMAINS.append(md5)
 
 SOLR_CONNECTION = "http://127.0.0.1:8080/solr/" # Connection to Solr

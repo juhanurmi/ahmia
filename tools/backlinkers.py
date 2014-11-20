@@ -3,13 +3,18 @@ Give list of target sites and host of the backlinker."""
 
 import argparse  # To command line arguments
 
+import certifi  # Security: Verified HTTPS with SSL/TLS
 import urllib3  # To HTTP requests
 from bs4 import BeautifulSoup  # To parse HTML
 
 
 def load_content(site, host, links):
     """Tests a site."""
-    http = urllib3.PoolManager()
+    # Security: Verified HTTPS with SSL/TLS
+    http = urllib3.PoolManager(
+        cert_reqs='CERT_REQUIRED', # Force certificate check.
+        ca_certs=certifi.where(),  # Path to the Certifi bundle.
+    )
     start_page_search = """https://startpage.com/do/search
     ?cmd=process_search&language=english&enginecount=1&pl=&abp=
     1&cdm=&tss=1&ff=&theme=&prf=464341bcfbcf47b736ff43307aef287a
@@ -37,7 +42,7 @@ def backlinks(response, count):
     """Print all backlinkers."""
     if response.status == 200:
         html_content = response.data
-        soup = BeautifulSoup(html_content)
+        soup = BeautifulSoup(html_content, "html5lib")
         if count:
             result_count(soup)
         else:

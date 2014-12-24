@@ -2,8 +2,6 @@ from scrapy import Spider
 from scrapy import log
 from items import ToolsItem
 
-# from the command line, scrapy's python path is relative to /Users/bsloan/Projects/ahmia/tools/new/tools
-
 class BacklinkSpider(Spider):
     name = "backlinkspider"
     allowed_domains = ["startpage.com"]

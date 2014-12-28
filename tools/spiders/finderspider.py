@@ -12,8 +12,7 @@ class FinderSpider(Spider):
 
     def start_requests(self):
         r1 = Request("http://deepweblinks.org/", callback=self.parse_deepweb)
-        #r2 = Request("https://skunksworkedp2cg.tor2web.fi/sites.txt", callback=self.parse_skunksworked)
-        r2 = Request("file:///Users/bsloan/Documents/sites.txt", callback=self.parse_skunksworked)
+        r2 = Request("https://skunksworkedp2cg.tor2web.fi/sites.txt", callback=self.parse_skunksworked)
         return [r1, r2]
 
     def parse_deepweb(self, response):

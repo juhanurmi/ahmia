@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-NAME = 'backlinkspider'
-
 SPIDER_MODULES = ['spiders']
 NEWSPIDER_MODULE = 'spiders'
 

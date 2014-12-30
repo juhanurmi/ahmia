@@ -61,6 +61,8 @@ class BacklinkSpider(Spider):
                 result_string += link + "\n"
             self.log("The most relevant results are shown (some entries are omitted):\n\n" + result_string,
                      level=log.INFO)
+        else:  # prints the count as integer to stdout as expected by existing tools. useful if logging is disabled
+            print self.count
 
 
 def find_between(string, first, last):

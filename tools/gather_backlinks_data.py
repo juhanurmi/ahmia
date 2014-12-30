@@ -33,7 +33,7 @@ def get_backlinks(onion_url):
     """ Call backlink tester and return the number of backlinks. """
     my_path = module_locator.module_path()
     backlink_tool = my_path + "/backlinkers.py"
-    args = ["python", backlink_tool, "-c", onion_url]
+    args = ["python", backlink_tool, "-c", onion_url]  # TODO: use the new backlinker spider instead?
     proc = subprocess.Popen(args, stdout=subprocess.PIPE)
     count = int(proc.communicate()[0])
     return count

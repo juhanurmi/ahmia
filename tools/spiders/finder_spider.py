@@ -3,7 +3,7 @@ from urllib3 import PoolManager
 from items import ToolsItem
 
 class FinderSpider(Spider):
-    name = "finderspider"
+    name = "finder_spider"
     allowed_domains = ["deepweblinks.org", "skunksworkedp2cg.tor2web.fi"]
     # TODO: replace default handling for common HTTP error responses (4xx, etc)
 

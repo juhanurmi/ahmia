@@ -3,7 +3,7 @@ from scrapy import log
 from items import ToolsItem
 
 class BacklinkSpider(Spider):
-    name = "backlinkspider"
+    name = "backlink_spider"
     allowed_domains = ["startpage.com"]
 
     def __init__(self, target="", host=None, links=None, count=None):

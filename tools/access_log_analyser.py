@@ -3,6 +3,7 @@
 import codecs  # UTF-8 support for the text files
 import datetime  # To compare Apache log timestamps
 import json  # JSON library
+import os
 import re  # Regular expressions
 import time  # To compare Apache log timestamps
 
@@ -90,21 +91,43 @@ def search_term_unescape(text):
     }
     return "".join(escape_table.get(c, c) for c in text)
 
-def read_file(filename):
-    """Read a file and return the text content."""
-    inputfile = codecs.open(filename, "r", "utf-8")
-    data = inputfile.read()
-    inputfile.close()
-    return data
+def reverse_readline(filename, buf_size=8192):
+    """a generator that returns the lines of a file in reverse order"""
+    with open(filename) as fh:
+        segment = None
+        offset = 0
+        fh.seek(0, os.SEEK_END)
+        total_size = remaining_size = fh.tell()
+        while remaining_size > 0:
+            offset = min(total_size, offset + buf_size)
+            fh.seek(-offset, os.SEEK_END)
+            buffer = fh.read(min(remaining_size, buf_size))
+            remaining_size -= buf_size
+            lines = buffer.split('\n')
+            # the first line of the buffer is probably not a complete line so
+            # we'll save it and append it to the last line of the next buffer
+            # we read
+            if segment is not None:
+                # if the previous chunk starts right from the beginning of line
+                # do not concact the segment to the last line of new chunk
+                # instead, yield the segment first
+                if buffer[-1] is not '\n':
+                    lines[-1] += segment
+                else:
+                    yield segment
+            segment = lines[0]
+            for index in range(len(lines) - 1, 0, -1):
+                yield lines[index]
+        yield segment
 
-def analyser(access_log):
+def analyser(access_file_path):
     """Extracts information from the access log text."""
     regex1 = r'([(\d\.)]+) - - \[(.*?)\] "(.*?)"'
     #regex2 = re.compile(r'\/search\/\?q=(.*?) HTTP')
     search_counts = []
     search_count = 0
     timestamp1 = ""
-    for line in reversed(access_log.split('\n')):
+    for line in reverse_readline(access_file_path):
         if line:
             ip_addr, timestamp2, http = re.match(regex1, line).groups()
             if not timestamp1:
@@ -130,13 +153,11 @@ def main():
     """Main function."""
     my_path = module_locator.module_path()
     access_file_path = my_path.replace("/tools", "/error/access.log")
-    access_log = read_file(access_file_path)
-    json_pretty = analyser(access_log)
+    json_pretty = analyser(access_file_path)
     filename = my_path.replace("/tools", "/ahmia/static/log/access.json")
     text2file(json_pretty, filename)
     access_file_path = my_path.replace("/tools", "/error/hs_access.log")
-    access_log = read_file(access_file_path)
-    json_pretty = analyser(access_log)
+    json_pretty = analyser(access_file_path)
     filename = my_path.replace("/tools", "/ahmia/static/log/hs_access.json")
     text2file(json_pretty, filename)
 

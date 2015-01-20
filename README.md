@@ -27,6 +27,7 @@ Installation
 $ apt-get install libxml2-dev libxslt-dev python-dev
 $ apt-get install libpq-dev
 $ apt-get install python-socksipy python-psycopg2 libapache2-mod-wsgi
+$ apt-get install libffi-dev
 ```
 
 ```sh

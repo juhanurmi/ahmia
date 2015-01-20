@@ -40,10 +40,16 @@ Edit the crawler's DEPTH_LIMIT = 1:
 $ nano ahmia/onionbot/dirbot/settings.py
 ```
 
-Run the crawler software:
+Run the crawler software and produce JSON file:
 
 ```sh
 $ scrapy crawl OnionSpider -o items.json -t json
+```
+
+or something similar with
+
+```sh
+$ scrapy crawl OnionSpider -s MAX_PER_DOMAIN=100 -s DEPTH_LIMIT=4
 ```
 
 Test your Solr:

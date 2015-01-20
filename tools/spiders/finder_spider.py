@@ -53,6 +53,9 @@ class FinderSpider(Spider):
         pool = PoolManager()
 
         for onion in self.onions:
+            onion = onion.replace("https:", "http:")
+            onion = onion.replace(".onion", ".onion/")
+            onion = onion[:30]
             json = "{\"url\":\"" + onion + "\"}"
             self.log("POSTing onion to ahmia: " + json)
 

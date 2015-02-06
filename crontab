@@ -22,7 +22,11 @@
 5 1 * * 1 echo "" > /usr/local/lib/ahmia/error/hs_access.log
 # Once a week check the backlinks
 #6 1 * * 1 timeout 600000s python /usr/local/lib/ahmia/tools/gather_backlinks_data.py >>/usr/local/lib/ahmia/error/tools_backlinks.log 2>&1
-# Once a week create database backup    
+# Once a week create database backup
 7 1 * * 1 pg_dump -U ahmia_login ahmia_db -f /usr/local/lib/ahmia/backups/sql/$(date -d "today" +"%Y-%m-%d")-db_backup.sql
 # Create a snapshot from the addresses with their descriptions
 8 1 * * 1 curl -i "Content-Type: application/json" https://ahmia.fi/address/ > /usr/local/lib/ahmia/backups/addresses/$(date -d "today" +"%Y-%m-%d")-addresses_snapshot.json
+#
+#
+#Download new port scan results
+30 1 * * 6 scp root@<scanner_server_ip>:/home/juha/hsportscanner/nonweb_services.json /usr/local/lib/ahmia/ahmia/static/log/

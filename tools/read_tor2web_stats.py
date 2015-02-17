@@ -10,24 +10,6 @@ import os  # Reading directories
 import module_locator  # My module.locator.py
 
 
-def cut_drugs(drugs, collection):
-    """Splits the JSON to multiple files."""
-    print "Instances in drug collection: %d" % collection.count()
-    print "Adding company data to trunk collection..."
-    for category_obj in drugs["Nautintoaineet"]:
-        for category in category_obj:
-            for subcategory_obj in category_obj[category]:
-                for subcategory in subcategory_obj:
-                    for product_obj in subcategory_obj[subcategory]:
-                        product_obj["year"] = drugs["year"]
-                        product_obj["month"] = drugs["month"]
-                        product_obj["day"] = drugs["day"]
-                        product_obj["subcategory"] = subcategory
-                        product_obj["category"] = category
-                        collection.insert(product_obj)
-    print "Instances in drug collection: %d" % collection.count()
-    print "Done."
-
 def getKey(item):
     """Return key."""
     return item.keys()[0]

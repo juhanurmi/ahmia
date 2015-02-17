@@ -46,7 +46,6 @@ def main():
     onions = []
     for onion in onions_data.keys():
         data = onions_data[onion]
-        print len(data)
         if len(data) > 100:
             onions.append(onion)
         data = sorted(data, key=getKey)

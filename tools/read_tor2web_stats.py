@@ -6,6 +6,7 @@ and split them to multiple files under ./history_multiple.
 import codecs  # UTF-8 support for the text files
 import json  # JSON library
 import os  # Reading directories
+import requests
 
 import module_locator  # My module.locator.py
 
@@ -44,15 +45,27 @@ def main():
                     onions_data[onion].append({time_stamp: access_count})
     static_log = my_path.replace("/tools", "/ahmia/static/log/onion_site_history/")
     onions = []
+
+    # Filter banned domains, get the list first
+    r = requests.get('https://127.0.0.1/banneddomains.txt', verify=False)
+    text = r.text.encode('ascii')
+    text = text.replace("http://", "")
+    text = text.replace("https://", "")
+    text = text.replace(".onion/", "")
+    ban_list = text.split("\n")
+
+    # Print to files
     for onion in onions_data.keys():
         data = onions_data[onion]
-        if len(data) > 100:
+        # Only select those onions that have over 100 active days
+        # Filter out banned domains
+        if len(data) > 100 and not onion in ban_list:
             onions.append(onion)
-        data = sorted(data, key=getKey)
-        pretty = json.dumps(data, indent=4, ensure_ascii=False)
-        file = open(static_log + onion + ".json", "w")
-        file.write(pretty+"\n")
-        file.close()
+            data = sorted(data, key=getKey)
+            pretty = json.dumps(data, indent=4, ensure_ascii=False)
+            file = open(static_log + onion + ".json", "w")
+            file.write(pretty+"\n")
+            file.close()
     onions.sort()
     pretty = json.dumps(onions, indent=4, sort_keys=True, ensure_ascii=False)
     file = open(static_log + "onions.json", "w")

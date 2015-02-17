@@ -19,7 +19,6 @@ def main():
     my_path = module_locator.module_path()
     json_data_dir = my_path.replace("/tools", "/tor2web_stats/")
     onions_data = {}
-    onions = []
     for filename in os.listdir(json_data_dir):
         if filename.endswith(".json"):
             json_file = json_data_dir + filename
@@ -43,10 +42,13 @@ def main():
                 except:
                     onions_data[onion] = []
                     onions_data[onion].append({time_stamp: access_count})
-                    onions.append(onion)
     static_log = my_path.replace("/tools", "/ahmia/static/log/onion_site_history/")
+    onions = []
     for onion in onions_data.keys():
         data = onions_data[onion]
+        print len(data)
+        if len(data) > 100:
+            onions.append(onion)
         data = sorted(data, key=getKey)
         pretty = json.dumps(data, indent=4, ensure_ascii=False)
         file = open(static_log + onion + ".json", "w")

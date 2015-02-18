@@ -6,6 +6,7 @@ and split them to multiple files under ./history_multiple.
 import codecs  # UTF-8 support for the text files
 import json  # JSON library
 import os  # Reading directories
+
 import requests
 
 import module_locator  # My module.locator.py
@@ -57,10 +58,11 @@ def main():
     # Print to files
     for onion in onions_data.keys():
         data = onions_data[onion]
-        # Only select those onions that have over 100 active days
+        # Only show those onions that have over 100 active days
         # Filter out banned domains
         if len(data) > 100 and not onion in ban_list:
             onions.append(onion)
+        if not onion in ban_list:
             data = sorted(data, key=getKey)
             pretty = json.dumps(data, indent=4, ensure_ascii=False)
             file = open(static_log + onion + ".json", "w")

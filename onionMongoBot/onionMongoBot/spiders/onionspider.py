@@ -32,5 +32,5 @@ class OnionSpider(CrawlSpider):
         item['h2'] = " ".join(h2_list)
         title = ' '.join(title_list)
         item['title'] = title
-        item['html'] = response
+        item['html'] = response.body
         return item

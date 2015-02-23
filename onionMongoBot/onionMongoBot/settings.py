@@ -8,6 +8,8 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
+DEPTH_LIMIT=1
+
 BOT_NAME = 'onionMongoBot'
 
 SPIDER_MODULES = ['onionMongoBot.spiders']
@@ -30,7 +32,7 @@ MONGODB_COLLECTION = 'companies'
 MONGODB_ADD_TIMESTAMP = True
 
 DOWNLOADER_MIDDLEWARES = {
-    'dirbot.middleware.ProxyMiddleware': 410,
+    'middleware.ProxyMiddleware': 410,
 }
 
 HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy

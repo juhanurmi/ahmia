@@ -5,13 +5,13 @@ from urlparse import urlparse
 import scrapy
 from scrapy.conf import settings
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-from scrapy.contrib.spiders import Rule
+from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.selector import HtmlXPathSelector
 
 from onionMongoBot.items import CrawledWebsiteItem
 
 
-class OnionSpider(scrapy.Spider):
+class OnionSpider(CrawlSpider):
     name = "OnionSpider"
     allowed_domains = ["onion"]
     start_urls = settings.get('TARGET_SITES')

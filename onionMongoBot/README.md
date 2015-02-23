@@ -21,6 +21,7 @@ $ source venv/bin/activate
 
 $ pip install cryptography
 $ pip install scrapy
+$ pip install scrapy-mongodb
 ```
 
 Setup Polipo:

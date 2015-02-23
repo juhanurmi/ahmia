@@ -3,6 +3,7 @@
 from urlparse import urlparse
 
 import scrapy
+from scrapy.conf import settings
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import Rule
 from scrapy.selector import HtmlXPathSelector
@@ -13,9 +14,7 @@ from onionMongoBot.items import CrawledWebsiteItem
 class OnionSpider(scrapy.Spider):
     name = "OnionSpider"
     allowed_domains = ["onion"]
-    start_urls = [
-        "https://ahmia.fi/address/",
-    ]
+    start_urls = settings.get('TARGET_SITES')
 
     rules = (Rule(SgmlLinkExtractor(), callback='parse', follow=False), )
 

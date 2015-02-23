@@ -37,6 +37,15 @@ DOWNLOADER_MIDDLEWARES = {
 
 HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
 
+# Create the target file list
+import requests  # Get a seed list from Ahmia
+
+r = requests.get('https://ahmia.fi/onions/')
+urls = map(lambda each:each.strip("\n"), r.text)
+
+# Target sites
+TARGET_SITES = urls
+
 """
 By default, Scrapy uses a LIFO queue for storing pending requests,
 which basically means that it crawls in DFO order.

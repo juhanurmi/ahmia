@@ -13,6 +13,7 @@ Short guide to linksScraper
 
 ```sh
 $ sudo apt-get install libffi-dev
+$ sudo apt-get install python-dev libxml2-dev libxslt-dev
 
 $ cd linksScraper
 $ virtualenv venv
@@ -32,7 +33,7 @@ $ service polipo restart
 Run the crawler software:
 
 ```sh
-$ scrapy crawl link_spider
+$ scrapy crawl OnionSpider -s DEPTH_LIMIT=3
 or
 $ scrapy crawl OnionSpider -o items.json -t json
 ```

@@ -7,7 +7,7 @@ from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import Rule
 from scrapy.selector import HtmlXPathSelector
 
-from dirbot.items import CrawledWebsiteItem
+from onionMongoBot.items import CrawledWebsiteItem
 
 
 class OnionSpider(scrapy.Spider):

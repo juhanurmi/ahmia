@@ -32,7 +32,7 @@ MONGODB_COLLECTION = 'companies'
 MONGODB_ADD_TIMESTAMP = True
 
 DOWNLOADER_MIDDLEWARES = {
-    'middleware.ProxyMiddleware': 410,
+    'onionMongoBot.middleware.ProxyMiddleware': 410,
 }
 
 HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy

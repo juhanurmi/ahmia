@@ -27,7 +27,7 @@ ITEM_PIPELINES = [
 
 MONGODB_URI = 'mongodb://localhost:27017'
 MONGODB_DATABASE = 'scrapy'
-MONGODB_COLLECTION = 'companies'
+MONGODB_COLLECTION = 'onions'
 
 MONGODB_ADD_TIMESTAMP = True
 

@@ -40,8 +40,9 @@ HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
 # Create the target file list
 import requests  # Get a seed list from Ahmia
 
-r = requests.get('https://ahmia.fi/onions/')
-urls = map(lambda each:each.strip("\n"), r.text)
+r = requests.get('https://ahmia.fi/onions/') # HTTP GET
+urls = r.text.split("\n") # Make it to Python list
+urls = filter(None, urls) # Remove empty strings from the list
 
 # Target sites
 TARGET_SITES = urls

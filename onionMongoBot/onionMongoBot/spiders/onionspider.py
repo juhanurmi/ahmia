@@ -18,7 +18,7 @@ class OnionSpider(CrawlSpider):
 
     rules = (Rule(SgmlLinkExtractor(), callback='parse', follow=False), )
 
-    def parse_items(self, response):
+    def parse(self, response):
         hxs = HtmlXPathSelector(response)
         item = CrawledWebsiteItem()
         item['url'] = response.url

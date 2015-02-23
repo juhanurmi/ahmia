@@ -32,3 +32,17 @@ MONGODB_ADD_TIMESTAMP = True
 DOWNLOADER_MIDDLEWARES = {
     'dirbot.middleware.ProxyMiddleware': 410,
 }
+
+HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
+
+"""
+By default, Scrapy uses a LIFO queue for storing pending requests,
+which basically means that it crawls in DFO order.
+This order is more convenient in most cases.
+If you do want to crawl in true BFO order,
+you can do it by setting the following settings:
+"""
+
+DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = 'scrapy.squeue.PickleFifoDiskQueue'
+SCHEDULER_MEMORY_QUEUE = 'scrapy.squeue.FifoMemoryQueue'

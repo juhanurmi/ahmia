@@ -1,7 +1,7 @@
 onionMongoBot - Crawl .onion websites from the Tor network
 ==========================================================
-This is a Scrapy project to crawl .onion websites from the Tor network.
-Saves plain HTML text to MongoDB or plain JSON.
+
+This is a Scrapy project to crawl .onion websites from the Tor network. Saves plain HTML text to MongoDB or plain JSON.
 
 Short guide to linksScraper
 ---------------------------
@@ -20,6 +20,13 @@ $ source venv/bin/activate
 
 $ pip install cryptography
 $ pip install scrapy
+```
+
+Setup Polipo:
+
+```sh
+$ cp ahmia/polipo_conf /etc/polipo/config
+$ service polipo restart
 ```
 
 Run the crawler software:

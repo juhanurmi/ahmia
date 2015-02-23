@@ -9,6 +9,8 @@
 
 from urlparse import urlparse
 
+from scrapy.conf import settings
+
 
 class ProxyMiddleware(object):
     """Middleware for .onion addresses."""

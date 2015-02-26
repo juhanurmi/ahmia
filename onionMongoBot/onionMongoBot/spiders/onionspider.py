@@ -18,7 +18,7 @@ class OnionSpider(CrawlSpider):
     allowed_domains = ["onion"]
     start_urls = settings.get('TARGET_SITES')
 
-    rules = (Rule(SgmlLinkExtractor(), callback='parse', follow=False), )
+    rules = (Rule(SgmlLinkExtractor(), callback='parse', follow=True), )
 
     def parse(self, response):
         hxs = HtmlXPathSelector(response)

@@ -9,10 +9,11 @@ from scrapy.item import Field, Item
 
 
 class CrawledWebsiteItem(Item):
-    """A web site context and plain txt HTML."""
+    """A web site"""
     domain = Field()
     url = Field()
     title = Field()
     h1 = Field()
     h2 = Field()
     html = Field()
+    words = Field()

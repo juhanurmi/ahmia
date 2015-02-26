@@ -28,14 +28,16 @@ ITEM_PIPELINES = [
 MONGODB_URI = 'mongodb://localhost:27017'
 MONGODB_DATABASE = 'scrapy'
 MONGODB_COLLECTION = 'onions'
-
 MONGODB_ADD_TIMESTAMP = True
+MONGODB_UNIQUE_KEY = 'url'
 
+# Middlewares
 DOWNLOADER_MIDDLEWARES = {
     'onionMongoBot.middleware.ProxyMiddleware': 410,
 }
 
-HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy
+# HTTP proxy settings
+HTTP_PROXY = "http://localhost:8123/" # HTTP Tor proxy in localhost
 
 # Create the target file list
 import requests  # Get a seed list from Ahmia

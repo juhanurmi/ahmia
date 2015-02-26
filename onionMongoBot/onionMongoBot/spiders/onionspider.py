@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import re
 from urlparse import urlparse
 
 import html2text

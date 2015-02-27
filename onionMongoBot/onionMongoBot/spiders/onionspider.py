@@ -6,7 +6,7 @@ from urlparse import urlparse
 import html2text
 import scrapy
 from scrapy.conf import settings
-from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.selector import HtmlXPathSelector
 
@@ -18,9 +18,9 @@ class OnionSpider(CrawlSpider):
     allowed_domains = ["onion"]
     start_urls = settings.get('TARGET_SITES')
 
-    rules = (Rule(SgmlLinkExtractor(), callback='parse', follow=True), )
+    rules = (Rule(LinkExtractor(), callback='parse_item', follow=True), )
 
-    def parse(self, response):
+    def parse_item(self, response):
         hxs = HtmlXPathSelector(response)
         item = CrawledWebsiteItem()
         item['url'] = response.url

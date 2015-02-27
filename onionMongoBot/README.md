@@ -17,6 +17,9 @@ $ sudo apt-get install libffi-dev
 $ sudo apt-get install python-dev libxml2-dev libxslt-dev
 $ sudo apt-get install html2text
 $ sudo apt-get install python-html2text
+$ sudo apt-get install python-twisted
+$ sudo apt-get install python-pyopenssl
+$ sudo apt-get install python-simplejson
 $ pip install cryptography
 $ pip install scrapy
 $ pip install scrapy-mongodb

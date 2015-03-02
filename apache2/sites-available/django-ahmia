@@ -50,8 +50,6 @@
 
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
-        Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
-        Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
 
 	ErrorLog "| /usr/local/lib/ahmia/apache2/error-log-cleanah.pl /usr/local/lib/ahmia/error/error.log"
         # Possible values include: debug, info, notice,
@@ -84,8 +82,6 @@
 
         Alias /static/ "/usr/local/lib/ahmia/ahmia/static/"
         Alias /media/ "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/"
-        Alias /favicon.ico "/usr/local/lib/ahmia/ahmia/static/images/favicon.ico"
-        Alias /robots.txt "/usr/local/lib/ahmia/ahmia/static/robots.txt"
         Alias /description.json "/usr/local/lib/ahmia/ahmia/static/description.json"
 
         ErrorLog "| /usr/local/lib/ahmia/apache2/error-log-cleanah.pl /usr/local/lib/ahmia/error/hs_error.log"

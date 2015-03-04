@@ -8,7 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-DEPTH_LIMIT=1
+DEPTH_LIMIT=2
 
 BOT_NAME = 'onionMongoBot'
 
@@ -19,6 +19,12 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0"
 
 DOWNLOAD_TIMEOUT = 120 # 2 min
 DOWNLOAD_DELAY = 2 # 2 sec
+
+# Search engine point of view
+CONCURRENT_REQUESTS = 100
+LOG_LEVEL = 'INFO'
+COOKIES_ENABLED = False
+RETRY_ENABLED = False
 
 # MongoDB settings
 ITEM_PIPELINES = [

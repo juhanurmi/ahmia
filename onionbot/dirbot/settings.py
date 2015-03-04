@@ -9,12 +9,18 @@ DEFAULT_ITEM_CLASS = 'dirbot.items.Website'
 
 DOWNLOAD_TIMEOUT = 120 # 2 min
 DOWNLOAD_DELAY = 2 # 2 sec
-#DEPTH_LIMIT = 1
+DEPTH_LIMIT = 1
 DEPTH_STATS = True
 DNSCACHE_ENABLED = True
 ROBOTSTXT_OBEY = True
 USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0"
 CRAWLING_SESSION = str(random.randint(100000, 999999))
+
+# Search engine point of view
+CONCURRENT_REQUESTS = 100
+LOG_LEVEL = 'INFO'
+COOKIES_ENABLED = False
+RETRY_ENABLED = False
 
 DOWNLOADER_MIDDLEWARES = {
     'dirbot.middleware.ProxyMiddleware': 410,

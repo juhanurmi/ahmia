@@ -5,6 +5,7 @@ import signal  # To timeout the TCP/HTTP connection
 import socket
 import urllib2
 from urllib2 import Request
+import requests
 
 import simplejson
 import socks
@@ -147,7 +148,7 @@ def get2txt(url):
     """Read from URL."""
     txt = ""
     try:
-        txt = urllib2.urlopen(url).read()
+        txt = requests.get(url, verify=False).text
         return txt
     except urllib2.HTTPError as error:
         print error

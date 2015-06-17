@@ -18,7 +18,7 @@ class SolrPipeline(object):
         parsed_uri = urlparse( item['url'] )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         item['domain'] = domain
-        tor2web = domain.replace(".onion", ".tor2web.fi")
+        tor2web = domain.replace(".onion", ".tor2web.org")
         item['tor2web_url'] = item['url'].replace(domain, tor2web)
         time_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         item['date_inserted'] = time_now

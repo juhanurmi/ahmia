@@ -129,21 +129,24 @@ def analyser(access_file_path):
     timestamp1 = ""
     for line in reverse_readline(access_file_path):
         if line:
-            ip_addr, timestamp2, http = re.match(regex1, line).groups()
-            if not timestamp1:
-                timestamp1 = timestamp2
-            if date_compare(timestamp1, timestamp2, hours=1):
-                searches = '{"' + timestamp1 + '": ' + str(search_count) + '}'
-                search_counts.append(searches)
-                search_count = 0
-                timestamp1 = timestamp2
-            if "/search/?q=" in http:
-                search_count = search_count + 1
-                #query = regex2.search(http)
-                #if query:
-                    #query = search_term_unescape(query.group(1))
-                    #if not "%" in query:
-                        #print query
+            try:
+                ip_addr, timestamp2, http = re.match(regex1, line).groups()
+                if not timestamp1:
+                    timestamp1 = timestamp2
+                if date_compare(timestamp1, timestamp2, hours=1):
+                    searches = '{"' + timestamp1 + '": ' + str(search_count) + '}'
+                    search_counts.append(searches)
+                    search_count = 0
+                    timestamp1 = timestamp2
+                if "/search/?q=" in http:
+                    search_count = search_count + 1
+                    #query = regex2.search(http)
+                    #if query:
+                        #query = search_term_unescape(query.group(1))
+                        #if not "%" in query:
+                            #print query
+            except Exception as e:
+                print e
     json_data = '{"searches": [' + ",".join(search_counts) + ']}'
     json_pretty = valid_pretty_json(json_data)
     if json_pretty:

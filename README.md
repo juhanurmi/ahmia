@@ -5,6 +5,11 @@ Ahmia - Tor Hidden Service Search
 
 https://ahmia.fi/
 
+New repository!
+---------------
+
+https://github.com/ahmia/search
+
 Compatibility
 -------------
 

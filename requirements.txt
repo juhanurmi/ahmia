@@ -1,4 +1,4 @@
-Django==1.7.4
+Django==1.11.29
 PySocks==1.5.0
 PyYAML==3.11
 Scrapy==0.24.4

@@ -8,7 +8,7 @@ argparse==1.2.1
 beautifulsoup4==4.3.2
 certifi==14.05.14
 cffi==0.8.6
-cryptography==0.7.2
+cryptography==3.2
 cssselect==0.9.1
 django-debug-toolbar==1.2.2
 django-haystack==2.3.1

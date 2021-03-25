@@ -1,6 +1,6 @@
 Django==1.7.4
 PySocks==1.5.0
-PyYAML==3.11
+PyYAML==5.4
 Scrapy==0.24.4
 SocksiPy-branch==1.01
 Twisted==15.0.0

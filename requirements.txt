@@ -10,7 +10,7 @@ certifi==14.05.14
 cffi==0.8.6
 cryptography==0.7.2
 cssselect==0.9.1
-django-debug-toolbar==1.2.2
+django-debug-toolbar==1.11.1
 django-haystack==2.3.1
 enum34==1.0.4
 html2text==2014.7.3

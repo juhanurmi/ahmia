@@ -3,7 +3,7 @@ PySocks==1.5.0
 PyYAML==3.11
 Scrapy==0.24.4
 SocksiPy-branch==1.01
-Twisted==15.0.0
+Twisted==22.1.0
 argparse==1.2.1
 beautifulsoup4==4.3.2
 certifi==14.05.14
